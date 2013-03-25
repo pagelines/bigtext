@@ -4,7 +4,7 @@ Section: BigText
 Author: Clifford Paulick
 Author URI: http://tourkick.com/?utm_source=pagelines&utm_medium=section&utm_content=authoruri&utm_campaign=bigtext_section
 Plugin URI: http://www.pagelinestheme.com/bigtext-section?utm_source=pagelines&utm_medium=section&utm_content=pluginuri&utm_campaign=bigtext_section
-Version: 1.0.20130320
+Version: 1.0.20130325
 Description: A <a href="https://github.com/zachleat/BigText" target="_blank">BigText</a> section that resizes text to fit one or more words on a line that fits the container, and is responsive which means it scales with different size browsers. Like <a href="www.pagelines.com/store/sections/fittext-section/" target="_blank">FitText</a> but more customizable!
 Demo: http://www.pagelinestheme.com/bigtext-section?utm_source=pagelines&utm_medium=section&utm_content=demolink&utm_campaign=bigtext_section
 External: http://tourkick.com/?utm_source=pagelines&utm_medium=section&utm_content=externallink&utm_campaign=bigtext_section
@@ -128,7 +128,7 @@ class BigTextSection extends PageLinesSection {
 		'bigtext-colors' => array(
 			'type'		=> 'color_multi',
 			'title'		=> 'Choose the color of each BigText line <em>(Optional)</em>',
-			'shortexp'	=> 'If there is no value set above, this will be disregarded',
+			'shortexp'	=> 'If you set a color below for an empty line above, the color setting will be disregarded',
 			'selectvalues'	=> array(
 				'bigtext-color-0'	=> array(
 					'css_prop'		=> 'color',
