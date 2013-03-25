@@ -11,6 +11,8 @@ Wish FitText could put more than one word on a line? Come enjoy the benefits of 
 <br />&raquo; Choose your own CSS line-height, margin, text-align values
 <br />&raquo; Specify your maximum font-size in pixels (default is 528px)
 <br />&raquo; Specify your minimum font-size in pixels (default is no minimum)
+<br />&raquo; Use HTML on each line (spans, nbsp, br, etc)
+<br />&raquo; Shortcodes work too
 <br />&raquo; And more!</p>
 See <a href="http://www.pagelinestheme.com/bigtext-section?utm_source=pagelines&utm_medium=section&utm_content=plstoredescription&utm_campaign=bigtext_section" target="_blank">Section's Official Page</a> for more details.
 
