@@ -15,8 +15,7 @@ Cloning: true
 
 class BigTextSection extends PageLinesSection {
 
-
-	function section_styles(){
+	function section_scripts(){
 		// BigText version 1.2, from https://github.com/zachleat/BigText#releases
 		wp_enqueue_script('bigtext', $this->base_url.'/bigtext.js', array( 'jquery' ), '1.2');
 
@@ -130,6 +129,11 @@ class BigTextSection extends PageLinesSection {
 			'title'		=> 'Choose the color of each BigText line <em>(Optional)</em>',
 			'shortexp'	=> 'If you set a color below for an empty line above, the color setting will be disregarded',
 			'selectvalues'	=> array(
+				'bigtext-color-bg'	=> array(
+					'css_prop'		=> 'color',
+					'cssgroup'		=> 'bigtextcolor',
+					'inputlabel' 	=> '<em>Background</em> Color'
+				),
 				'bigtext-color-0'	=> array(
 					'css_prop'		=> 'color',
 					'cssgroup'		=> 'bigtextcolor',
@@ -234,39 +238,62 @@ class BigTextSection extends PageLinesSection {
 			'title'		=> 'Enter your BigText configuration settings here',
 			'shortexp'	=> 'Control it',
 			'selectvalues'	=> array(
+				'bigtext-wrapper-class'	=> array(
+					'type'			=> 'text',
+					'inputlabel'	=> 'Add your own <strong>Wrapper</strong> CSS class.<br/>&nbsp;&nbsp;&nbsp;Try <em>wellnotrounded</em>, <em>wellnotrounded-small</em>, or <em>wellnotrounded-large</em> to get a full-width Bootstrap Well without rounded corners.<br/>&nbsp;&nbsp;&nbsp;<strong>Separate multiple custom CSS classes with a space.</strong>'
+				),
+				'bigtext-content-class'	=> array(
+					'type'			=> 'text',
+					'inputlabel'	=> 'Add your own <strong>Content Area</strong> CSS class.<br/>&nbsp;&nbsp;&nbsp;Try <em>well</em>, <em>well-small</em>, or <em>well-large</em> to get a Bootstrap Well.<br/>&nbsp;&nbsp;&nbsp;<strong>Separate multiple custom CSS classes with a space.</strong>'
+				),
 				'bigtext-font'	=> array(
 					'type'			=> 'fonts',
 					'inputlabel'	=> 'Choose Font',
 					'exp'			=> 'This font will be used in this BigText area. If left blank, the default font will be used.',
 					'shortexp'		=> 'Select BigText Font'
 				),
+				'bigtext-text-transform'=> array(
+					'type' 			=> 'select',
+					'inputlabel'	=> 'BigText Text-Transform.<br/>&nbsp;&nbsp;&nbsp;Default = <em>N/A</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/text-transform" target="_blank">CSS text-transform</a>',
+					'selectvalues' => array(
+						'capitalize'	=> array('name' => 'Capitalize' ),
+						'uppercase'		=> array('name' => 'Uppercase / All Caps' ),
+						'lowercase'		=> array('name' => 'Lowercase / No Caps' )
+					)
+				),
 				'bigtext-width'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> 'Width of BigText area.<br/>Default = <em>100%</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/width" target="_blank">CSS width</a>'
+					'inputlabel'	=> 'Width of BigText area (any units: %, px, em, etc).<br/>&nbsp;&nbsp;&nbsp;Default = <em>100%</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/width" target="_blank">CSS width</a>'
 				),
 				'bigtext-max-width'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> 'Max-Width of BigText area.<br/>Default = <em>100%</em> (which makes it responsive)<br/><a href="https://developer.mozilla.org/en-US/docs/CSS/max-width" target="_blank">CSS max-width</a>'
+					'inputlabel'	=> 'Max-Width of BigText area (any units: %, px, em, etc).<br/>&nbsp;&nbsp;&nbsp;Default = <em>100%</em> (which makes it responsive)<br/><a href="https://developer.mozilla.org/en-US/docs/CSS/max-width" target="_blank">CSS max-width</a>'
 				),
 				'bigtext-line-height'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> 'BigText Line-Height (e.g. 0.9).<br/>Default = <em>1</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/line-height" target="_blank">CSS line-height</a>'
+					'inputlabel'	=> 'BigText Line-Height (e.g. 0.9).<br/>&nbsp;&nbsp;&nbsp;Default = <em>1</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/line-height" target="_blank">CSS line-height</a>'
 				),
 				'bigtext-margin'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> 'BigText area margin (e.g. 0).<br/>Default = <em>auto</em> (which makes it centered to its page/container)<br/><a href="https://developer.mozilla.org/en-US/docs/CSS/margin" target="_blank">CSS margin</a>'
+					'inputlabel'	=> 'BigText area margin (e.g. <em>5%</em> or <em>10px 3px 30px 5px</em>, etc).<br/>&nbsp;&nbsp;&nbsp;Default = <em>auto</em> (which makes it centered to its page/container)<br/><a href="https://developer.mozilla.org/en-US/docs/CSS/margin" target="_blank">CSS margin</a>'
 				),
-				'bigtext-text-align'	=> array(
-					'type'			=> 'text_small',
-					'inputlabel'	=> 'BigText Text-Align (e.g. justify).<br/>Default = <em>center</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/text-align" target="_blank">CSS text-align</a>'
+				'bigtext-text-align'=> array(
+					'type' 			=> 'select',
+					'inputlabel'	=> 'BigText Text-Align.<br/>&nbsp;&nbsp;&nbsp;Default = <em>center</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/text-align" target="_blank">CSS text-align</a>',
+					'selectvalues' => array(
+						'center'	=> array('name' => 'Center' ), //default
+						'left'		=> array('name' => 'Left' ),
+						'right'		=> array('name' => 'Right' ),
+						'justify'	=> array('name' => 'Justify' )
+					)
 				),
 				'bigtext-maxfontsize'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> 'Max Font-Size (MUST BE IN PX, with or w/o "px")<br/>Default = <em>528</em>'
+					'inputlabel'	=> 'Max Font-Size (MUST BE IN PX, with or w/o "px")<br/>&nbsp;&nbsp;&nbsp;Default = <em>528</em>'
 				),
 				'bigtext-minfontsize'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> 'Min Font-Size (MUST BE IN PX, with or w/o "px")<br/>Default = Null/Zero'
+					'inputlabel'	=> 'Min Font-Size (MUST BE IN PX, with or w/o "px")<br/>&nbsp;&nbsp;&nbsp;Default = Null/Zero'
 				)
 			  )
 			)
@@ -292,6 +319,14 @@ class BigTextSection extends PageLinesSection {
 			return;
 		}
 
+
+		$wrapperclass = ploption('bigtext-wrapper-class', $this->oset);
+			$wrapperclass = esc_html($wrapperclass);
+			$wrapperclass = str_replace(",", " ", $wrapperclass); // replace commas with spaces
+		$this->special_classes .= $wrapperclass;
+
+
+
 		// text
 		// cannot do esc_html() to protect input on all these because then HTML will not work -- so do not insert your own malicious scripts ;-)
 		$text0 = ploption('bigtext-text-0', $this->oset);
@@ -316,6 +351,7 @@ class BigTextSection extends PageLinesSection {
 			$text9 = do_shortcode($text9);
 
 		// colors
+		$colorbg = ploption('bigtext-color-bg', $this->oset);
 		$color0 = ploption('bigtext-color-0', $this->oset);
 		$color1 = ploption('bigtext-color-1', $this->oset);
 		$color2 = ploption('bigtext-color-2', $this->oset);
@@ -341,6 +377,10 @@ class BigTextSection extends PageLinesSection {
 
 
 		// sizing and positioning
+		$contentclass = ploption('bigtext-content-class', $this->oset);
+			$contentclass = esc_html($contentclass);
+			$contentclass = str_replace(",", " ", $contentclass); // replace commas with spaces
+		$texttransform = ploption('bigtext-text-transform', $this->oset);
 		$width = ploption('bigtext-width', $this->oset) ? ploption('bigtext-width', $this->oset) : '100%';
 			$width = esc_html($width);
 		$maxwidth = ploption('bigtext-max-width', $this->oset) ? ploption('bigtext-max-width', $this->oset) : '100%';
@@ -349,12 +389,15 @@ class BigTextSection extends PageLinesSection {
 			$lineheight = esc_html($lineheight);
 		$margin = ploption('bigtext-margin', $this->oset) ? ploption('bigtext-margin', $this->oset) : 'auto';
 			$margin = esc_html($margin);
-		$textalign = ploption('bigtext-text-align', $this->oset) ? ploption('bigtext-text-align', $this->oset) : 'center';
-			$textalign = esc_html($textalign);
+		$textalign = ploption('bigtext-text-align', $this->oset) ? ploption('bigtext-text-align', $this->oset) : 'center' ;
 
 
 		//start BigText Area
-		echo "<div id='bigtext-$clone_id' style='width: $width; max-width: $maxwidth; line-height: $lineheight; margin: $margin; text-align: $textalign;'>";
+		echo "<div id='bigtext-$clone_id' class='$contentclass bigtext' style='width: $width; max-width: $maxwidth; line-height: $lineheight; margin: $margin; text-align: $textalign;";
+			if(empty($texttransform)){ echo ""; } else { echo " text-transform: $texttransform;"; }
+			if(empty($colorbg)){ echo ""; } else { echo " background-color: $colorbg;"; }
+		echo "'>";
+
 		//text0
 			echo "<div class='bigtext btline0";
 				if(empty($exempt0)){ echo "'"; } else { echo " bigtext-exempt'"; }
