@@ -67,7 +67,7 @@ class BigTextSection extends PageLinesSection {
 
 		<?php
 
-		echo load_custom_font( ploption('bigtext-font', $this->oset), $prefix.' #bigtext' );
+		echo load_custom_font( ploption('bigtext-font', $this->oset), ' #bigtext-'. $clone_id );
 
 	}
 
