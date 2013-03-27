@@ -4,13 +4,13 @@ Section: BigText
 Author: Clifford Paulick
 Author URI: http://tourkick.com/?utm_source=pagelines&utm_medium=section&utm_content=authoruri&utm_campaign=bigtext_section
 Plugin URI: http://www.pagelinestheme.com/bigtext-section?utm_source=pagelines&utm_medium=section&utm_content=pluginuri&utm_campaign=bigtext_section
-Version: 1.0.20130325
+Version: 1.0.20130327
 Description: A <a href="https://github.com/zachleat/BigText" target="_blank">BigText</a> section that resizes text to fit one or more words on a line that fits the container, and is responsive which means it scales with different size browsers. Like <a href="www.pagelines.com/store/sections/fittext-section/" target="_blank">FitText</a> but more customizable!
 Demo: http://www.pagelinestheme.com/bigtext-section?utm_source=pagelines&utm_medium=section&utm_content=demolink&utm_campaign=bigtext_section
 External: http://tourkick.com/?utm_source=pagelines&utm_medium=section&utm_content=externallink&utm_campaign=bigtext_section
 Class Name: BigTextSection
 Workswith: templates, main, sidebar1, sidebar2, sidebar_wrap, header, footer, morefoot
-Cloning: false
+Cloning: true
 */
 
 class BigTextSection extends PageLinesSection {
@@ -46,7 +46,7 @@ class BigTextSection extends PageLinesSection {
 		/*<![CDATA[*/
 			jQuery(document).ready(function(){
 
-				jQuery('<?php echo $prefix;?> #bigtext').bigtext({
+				jQuery("#bigtext-<?php echo$clone_id ?>").bigtext({
 					<?php
 					// FYI: https://github.com/zachleat/BigText#change-the-default-min-starting-font-size
 
@@ -285,7 +285,7 @@ class BigTextSection extends PageLinesSection {
 	}
 
 
-	function section_template(){
+	function section_template( $clone_id ){
 
 		if(!ploption('bigtext-text-0', $this->oset)){
 			echo setup_section_notify($this, __('Please set up BigText text by at least entering a value for "BigText Line 0 Text".'));
@@ -354,7 +354,7 @@ class BigTextSection extends PageLinesSection {
 
 
 		//start BigText Area
-		echo "<div id='bigtext' style='width: $width; max-width: $maxwidth; line-height: $lineheight; margin: $margin; text-align: $textalign;'>";
+		echo "<div id='bigtext-$clone_id' style='width: $width; max-width: $maxwidth; line-height: $lineheight; margin: $margin; text-align: $textalign;'>";
 		//text0
 			echo "<div class='bigtext btline0";
 				if(empty($exempt0)){ echo "'"; } else { echo " bigtext-exempt'"; }
