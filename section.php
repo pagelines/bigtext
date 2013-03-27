@@ -15,7 +15,7 @@ Cloning: true
 
 class BigTextSection extends PageLinesSection {
 
-	function section_scripts(){
+	function section_styles(){
 		// BigText version 1.2, from https://github.com/zachleat/BigText#releases
 		wp_enqueue_script('bigtext', $this->base_url.'/bigtext.js', array( 'jquery' ), '1.2');
 
