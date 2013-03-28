@@ -7,15 +7,14 @@ Wish FitText could put more than one word on a line? Come enjoy the benefits of 
 <br />&raquo; Each line can have its own color with the built-in color picker
 <br />&raquo; Each line can have the BigText effect "turned off" (called "exempt") with a simple checkbox
 <br />&raquo; Pick your own BigText font
+<br />&raquo; Pick a color or image background (optional transparent text)
 <br />&raquo; Customize the width of the BigText area, and it's responsive
 <br />&raquo; Choose your own CSS line-height, margin, text-align values
 <br />&raquo; Specify your maximum font-size in pixels (default is 528px)
 <br />&raquo; Specify your minimum font-size in pixels (default is no minimum)
-<br />&raquo; Use HTML on each line (spans, nbsp, br, etc)
-<br />&raquo; Shortcodes work too
 <br />&raquo; And more!</p>
 See <a href="http://www.pagelinestheme.com/bigtext-section?utm_source=pagelines&utm_medium=section&utm_content=plstoredescription&utm_campaign=bigtext_section" target="_blank">Section's Official Page</a> for more details.
 
 == Changelog ==
-= 1.0.20130327 =
+= 1.0.20130328 =
 * Initial release

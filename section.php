@@ -4,14 +4,14 @@ Section: BigText
 Author: Clifford Paulick
 Author URI: http://tourkick.com/?utm_source=pagelines&utm_medium=section&utm_content=authoruri&utm_campaign=bigtext_section
 Plugin URI: http://www.pagelinestheme.com/bigtext-section?utm_source=pagelines&utm_medium=section&utm_content=pluginuri&utm_campaign=bigtext_section
-Version: 1.0.20130327
+Version: 1.0.20130328
 Description: A <a href="https://github.com/zachleat/BigText" target="_blank">BigText</a> section that resizes text to fit one or more words on a line that fits the container, and is responsive which means it scales with different size browsers. Like <a href="www.pagelines.com/store/sections/fittext-section/" target="_blank">FitText</a> but more customizable!
 Demo: http://www.pagelinestheme.com/bigtext-section?utm_source=pagelines&utm_medium=section&utm_content=demolink&utm_campaign=bigtext_section
-External: http://tourkick.com/?utm_source=pagelines&utm_medium=section&utm_content=externallink&utm_campaign=bigtext_section
 Class Name: BigTextSection
 Workswith: templates, main, sidebar1, sidebar2, sidebar_wrap, header, footer, morefoot
 Cloning: true
 */
+
 
 class BigTextSection extends PageLinesSection {
 
@@ -129,11 +129,6 @@ class BigTextSection extends PageLinesSection {
 			'title'		=> 'Choose the color of each BigText line <em>(Optional)</em>',
 			'shortexp'	=> 'If you set a color below for an empty line above, the color setting will be disregarded',
 			'selectvalues'	=> array(
-				'bigtext-color-bg'	=> array(
-					'css_prop'		=> 'color',
-					'cssgroup'		=> 'bigtextcolor',
-					'inputlabel' 	=> '<em>Background</em> Color'
-				),
 				'bigtext-color-0'	=> array(
 					'css_prop'		=> 'color',
 					'cssgroup'		=> 'bigtextcolor',
@@ -238,13 +233,55 @@ class BigTextSection extends PageLinesSection {
 			'title'		=> 'Enter your BigText configuration settings here',
 			'shortexp'	=> 'Control it',
 			'selectvalues'	=> array(
+				'bigtext-color-bg'	=> array(
+					'type'			=> 'colorpicker',
+					'css_prop'		=> 'background-color',
+					'inputlabel' 	=> 'Background Color'
+				),
+				'bigtext-color-stroke'	=> array(
+					'type'			=> 'colorpicker',
+					'css_prop'		=> 'text-shadow',
+					'inputlabel' 	=> 'Stroke Color<br/>(a 1px Outline)'
+				),
+				'bigtext-transparent-text'	=> array(
+					'type'			=> 'check',
+					'inputlabel'	=> 'Change text color to transparent. Warnings:<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Only works on Chrome<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ignored on other browsers<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Does not work as expected with Stroke/Outline Color above'
+				),
+				'bigtext-image-bg'	=> array(
+					'type'			=> 'image_upload',
+					'inputlabel' 	=> 'Background Image'
+				),
+				'bigtext-image-bg-size'=> array(
+					'type' 			=> 'select',
+					'inputlabel'	=> 'Background Image Size.<br/>&nbsp;&nbsp;&nbsp;Default = <em>None / Auto</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/background-size" target="_blank">CSS background-size</a>',
+					'selectvalues' => array(
+						'auto'	=> array('name' => 'Auto (Default)' ), // default
+						'contain'	=> array('name' => 'Contain' ),
+						'cover'		=> array('name' => 'Cover' )
+						)
+				),
+				'bigtext-image-bg-position'=> array(
+					'type' 			=> 'select',
+					'inputlabel'	=> 'Background Image Position.<br/>&nbsp;&nbsp;&nbsp;Default = <em>center center</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/background-position" target="_blank">CSS background-position</a>, <a href="http://www.w3schools.com/cssref/playit.asp?filename=playcss_background-position" target="_blank">Try It Out</a>',
+					'selectvalues' => array(
+						'center center'	=> array('name' => 'Center Center (Default)' ), // default
+						'left top'		=> array('name' => 'Left Top' ),
+						'left center'	=> array('name' => 'Left Center' ),
+						'left bottom'	=> array('name' => 'Left Bottom' ),
+						'right top'		=> array('name' => 'Right Top' ),
+						'right center'	=> array('name' => 'Right Center' ),
+						'right bottom'	=> array('name' => 'Right Bottom' ),
+						'center top'	=> array('name' => 'Center Top' ),
+						'center bottom'	=> array('name' => 'Center Bottom' )
+					)
+				),
 				'bigtext-wrapper-class'	=> array(
 					'type'			=> 'text',
 					'inputlabel'	=> 'Add your own <strong>Wrapper</strong> CSS class.<br/>&nbsp;&nbsp;&nbsp;Try <em>wellnotrounded</em>, <em>wellnotrounded-small</em>, or <em>wellnotrounded-large</em> to get a full-width Bootstrap Well without rounded corners.<br/>&nbsp;&nbsp;&nbsp;<strong>Separate multiple custom CSS classes with a space.</strong>'
 				),
 				'bigtext-content-class'	=> array(
 					'type'			=> 'text',
-					'inputlabel'	=> 'Add your own <strong>Content Area</strong> CSS class.<br/>&nbsp;&nbsp;&nbsp;Try <em>well</em>, <em>well-small</em>, or <em>well-large</em> to get a Bootstrap Well.<br/>&nbsp;&nbsp;&nbsp;<strong>Separate multiple custom CSS classes with a space.</strong>'
+					'inputlabel'	=> 'Add your own <strong>Content Area</strong> CSS class.<br/>&nbsp;&nbsp;&nbsp;Try <em>well</em> to get a Bootstrap Well.<br/>Try using <em>rounded</em> to round the corners of the background color, if chosen above.<br/>&nbsp;&nbsp;&nbsp;<strong>Separate multiple custom CSS classes with a space.</strong>'
 				),
 				'bigtext-font'	=> array(
 					'type'			=> 'fonts',
@@ -254,7 +291,7 @@ class BigTextSection extends PageLinesSection {
 				),
 				'bigtext-text-transform'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> 'BigText Text-Transform.<br/>&nbsp;&nbsp;&nbsp;Default = <em>N/A</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/text-transform" target="_blank">CSS text-transform</a>',
+					'inputlabel'	=> 'BigText Text-Transform.<br/>&nbsp;&nbsp;&nbsp;Warning: Imperfect for sizing. Double-check it works as desired.<br/>&nbsp;&nbsp;&nbsp;Default = <em>N/A</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/text-transform" target="_blank">CSS text-transform</a>',
 					'selectvalues' => array(
 						'capitalize'	=> array('name' => 'Capitalize' ),
 						'uppercase'		=> array('name' => 'Uppercase / All Caps' ),
@@ -281,7 +318,7 @@ class BigTextSection extends PageLinesSection {
 					'type' 			=> 'select',
 					'inputlabel'	=> 'BigText Text-Align.<br/>&nbsp;&nbsp;&nbsp;Default = <em>center</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/text-align" target="_blank">CSS text-align</a>',
 					'selectvalues' => array(
-						'center'	=> array('name' => 'Center' ), //default
+						'center'	=> array('name' => 'Center (Default)' ), //default
 						'left'		=> array('name' => 'Left' ),
 						'right'		=> array('name' => 'Right' ),
 						'justify'	=> array('name' => 'Justify' )
@@ -350,8 +387,36 @@ class BigTextSection extends PageLinesSection {
 		$text9 = ploption('bigtext-text-9', $this->oset);
 			$text9 = do_shortcode($text9);
 
-		// colors
+		// images and colors
+		$bgimage = ploption('bigtext-image-bg', $this->oset);
+			if(empty($bgimage)) {
+				echo "";
+			} else {
+				$bgimagesize = ploption('bigtext-image-bg-size', $this->oset) ? ploption('bigtext-image-bg-size', $this->oset) : 'auto';
+				$bgimageposition = ploption('bigtext-image-bg-position', $this->oset) ? ploption('bigtext-image-bg-position', $this->oset) : 'center center';
+				$bgimagecode = "background: url(\"$bgimage\") no-repeat; background-position: $bgimageposition; -webkit-background-size: $bgimagesize; -moz-background-size: $bgimagesize; background-size: $bgimagesize;";
+				// https://developer.mozilla.org/en-US/docs/CSS/background-size
+				// http://www.css3.info/preview/background-size/
+				// https://developer.mozilla.org/en-US/docs/CSS/background-clip
+			}
+
 		$colorbg = ploption('bigtext-color-bg', $this->oset);
+
+		$transparenttext = ploption('bigtext-transparent-text', $this->oset);
+			if(empty($transparenttext)) {
+				echo "";
+			} else {
+				$transparenttextcode = "-webkit-background-clip:text; -webkit-text-fill-color:transparent;";
+			}
+
+		$colorstroke = ploption('bigtext-color-stroke', $this->oset);
+			if(empty($colorstroke)) {
+				echo "";
+			} else {
+				$stroketextcode = "text-shadow: -1px -1px 0 $colorstroke, 1px -1px 0 $colorstroke, -1px 1px 0 $colorstroke, 1px 1px 0 $colorstroke;";
+			}
+
+
 		$color0 = ploption('bigtext-color-0', $this->oset);
 		$color1 = ploption('bigtext-color-1', $this->oset);
 		$color2 = ploption('bigtext-color-2', $this->oset);
@@ -396,6 +461,9 @@ class BigTextSection extends PageLinesSection {
 		echo "<div id='bigtext-$clone_id' class='$contentclass bigtext' style='width: $width; max-width: $maxwidth; line-height: $lineheight; margin: $margin; text-align: $textalign;";
 			if(empty($texttransform)){ echo ""; } else { echo " text-transform: $texttransform;"; }
 			if(empty($colorbg)){ echo ""; } else { echo " background-color: $colorbg;"; }
+			if(empty($bgimage)){ echo ""; } else { echo " $bgimagecode"; } // leading space
+			if(empty($transparenttext)){ echo ""; } else { echo " $transparenttextcode"; }
+			if(empty($colorstroke)){ echo ""; } else { echo " $stroketextcode"; }
 		echo "'>";
 
 		//text0
