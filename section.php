@@ -160,11 +160,20 @@ class BigTextSection extends PageLinesSection {
 				),
 				'bigtext-text-align'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('BigText Text-Align.<br/>&nbsp;&nbsp;&nbsp;Default = <em>center</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/text-align" target="_blank">CSS text-align</a>', 'pagelines'),
+					'inputlabel'	=> __('BigText Text-Align<br/>&nbsp;&nbsp;&nbsp;Default = <em>center</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/text-align" target="_blank">CSS text-align</a>', 'pagelines'),
 					'selectvalues' => array(
 						'left'		=> array('name' => __('Left', 'pagelines') ),
 						'right'		=> array('name' => __('Right', 'pagelines') ),
 						'justify'	=> array('name' => __('Justify', 'pagelines') )
+					)
+				),
+				'bigtext-text-decoration'=> array(
+					'type' 			=> 'select',
+					'inputlabel'	=> __('Text-Decoration.<br/>&nbsp;&nbsp;&nbsp;Default = <em>None</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/text-decoration" target="_blank">CSS text-decoration</a>', 'pagelines'),
+					'selectvalues' => array(
+						'underline'	=> array('name' => __('Underline', 'pagelines') ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
+						'overline'		=> array('name' => __('Overline', 'pagelines') )
 					)
 				),
 				'bigtext-line-height'	=> array(
@@ -179,21 +188,26 @@ class BigTextSection extends PageLinesSection {
 					'type'			=> 'check',
 					'inputlabel'	=> __('Change text color to transparent. Warnings:<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Only works on Webkit browsers. Ignored on other browsers.<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Try setting text color to white or black as a backup for non-Webkit.<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Does not work as expected with Stroke/Outline or Shadow Colors.<br/><br/>', 'pagelines')
 				),
-				'bigtext-color'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Default Text Color', 'pagelines')
-				),
-				'bigtext-color-stroke'	=> array(
-					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Stroke Color<br/>(a 1px Outline)', 'pagelines')
-				),
-				'bigtext-color-shadow'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Default Shadow Color', 'pagelines')
+				'bigtext-colors'	=> array(
+					'type'		    => 'color_multi',
+					'selectvalues'	=> array(
+						'bigtext-color'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel' 	=> __('Default Text Color', 'pagelines')
+						),
+						'bigtext-color-stroke'	=> array(
+							'type'			=> 'colorpicker',
+							'inputlabel' 	=> __('Stroke Color<br/>(a 1px Outline)', 'pagelines')
+						),
+						'bigtext-color-shadow'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel'	=> __('Default<br/>Shadow Color', 'pagelines')
+						)
+					)
 				),
 				'bigtext-color-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Shadow Length (default: <em>2px</em> if color is set)', 'pagelines')
+					'inputlabel' 	=> __('Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			)
 		),
@@ -302,12 +316,22 @@ class BigTextSection extends PageLinesSection {
 				),
 				'bigtext-text-align-0'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 0 Text-Align.', 'pagelines'),
+					'inputlabel'	=> __('Line 0 Text-Align', 'pagelines'),
 					'selectvalues' => array(
 						'center'	=> array('name' => __('Center', 'pagelines') ),
 						'left'		=> array('name' => __('Left', 'pagelines') ),
 						'right'		=> array('name' => __('Right', 'pagelines') ),
 						'justify'	=> array('name' => __('Justify', 'pagelines') )
+					)
+				),
+				'bigtext-text-decoration-0'=> array(
+					'type' 			=> 'select',
+					'inputlabel'	=> __('Line 0 Text-Decoration', 'pagelines'),
+					'selectvalues' => array(
+						'none'	=> array('name' => __('None', 'pagelines') ),
+						'underline'	=> array('name' => __('Underline', 'pagelines') ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
+						'overline'		=> array('name' => __('Overline', 'pagelines') )
 					)
 				),
 				'bigtext-line-height-0'	=> array(
@@ -324,21 +348,26 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 0 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
 				),
 */
-				'bigtext-color-0'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Line 0 Text Color', 'pagelines')
-				),
-				'bigtext-color-0-stroke'	=> array(
-					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Line 0 Stroke Color<br/>(a 1px Outline)', 'pagelines')
-				),
-				'bigtext-color-0-shadow'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Line 0 Shadow Color', 'pagelines')
+				'bigtext-colors-0'	=> array(
+					'type'		    => 'color_multi',
+					'selectvalues'	=> array(
+						'bigtext-color-0'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel' 	=> __('Line 0 Text Color', 'pagelines')
+						),
+						'bigtext-color-0-stroke'	=> array(
+							'type'			=> 'colorpicker',
+							'inputlabel' 	=> __('Line 0 Stroke<br/>(a 1px Outline)', 'pagelines')
+						),
+						'bigtext-color-0-shadow'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel'	=> __('Line 0<br/>Shadow Color', 'pagelines')
+						)
+					)
 				),
 				'bigtext-color-0-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Line 0 Shadow Length (default: <em>2px</em> if color is set)', 'pagelines')
+					'inputlabel' 	=> __('Line 0 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			  )
 			),
@@ -353,12 +382,22 @@ class BigTextSection extends PageLinesSection {
 				),
 				'bigtext-text-align-1'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 1 Text-Align.', 'pagelines'),
+					'inputlabel'	=> __('Line 1 Text-Align', 'pagelines'),
 					'selectvalues' => array(
 						'center'	=> array('name' => __('Center', 'pagelines') ),
 						'left'		=> array('name' => __('Left', 'pagelines') ),
 						'right'		=> array('name' => __('Right', 'pagelines') ),
 						'justify'	=> array('name' => __('Justify', 'pagelines') )
+					)
+				),
+				'bigtext-text-decoration-1'=> array(
+					'type' 			=> 'select',
+					'inputlabel'	=> __('Line 1 Text-Decoration', 'pagelines'),
+					'selectvalues' => array(
+						'none'	=> array('name' => __('None', 'pagelines') ),
+						'underline'	=> array('name' => __('Underline', 'pagelines') ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
+						'overline'		=> array('name' => __('Overline', 'pagelines') )
 					)
 				),
 				'bigtext-line-height-1'	=> array(
@@ -375,21 +414,26 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 1 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
 				),
 */
-				'bigtext-color-1'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Line 1 Text Color', 'pagelines')
-				),
-				'bigtext-color-1-stroke'	=> array(
-					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Line 1 Stroke Color<br/>(a 1px Outline)', 'pagelines')
-				),
-				'bigtext-color-1-shadow'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Line 1 Shadow Color', 'pagelines')
+				'bigtext-colors-1'	=> array(
+					'type'		    => 'color_multi',
+					'selectvalues'	=> array(
+						'bigtext-color-1'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel' 	=> __('Line 1 Text Color', 'pagelines')
+						),
+						'bigtext-color-1-stroke'	=> array(
+							'type'			=> 'colorpicker',
+							'inputlabel' 	=> __('Line 1 Stroke<br/>(a 1px Outline)', 'pagelines')
+						),
+						'bigtext-color-1-shadow'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel'	=> __('Line 1<br/>Shadow Color', 'pagelines')
+						)
+					)
 				),
 				'bigtext-color-1-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Line 1 Shadow Length (default: <em>2px</em> if color is set)', 'pagelines')
+					'inputlabel' 	=> __('Line 1 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			  )
 			),
@@ -404,12 +448,22 @@ class BigTextSection extends PageLinesSection {
 				),
 				'bigtext-text-align-2'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 2 Text-Align.', 'pagelines'),
+					'inputlabel'	=> __('Line 2 Text-Align', 'pagelines'),
 					'selectvalues' => array(
 						'center'	=> array('name' => __('Center', 'pagelines') ),
 						'left'		=> array('name' => __('Left', 'pagelines') ),
 						'right'		=> array('name' => __('Right', 'pagelines') ),
 						'justify'	=> array('name' => __('Justify', 'pagelines') )
+					)
+				),
+				'bigtext-text-decoration-2'=> array(
+					'type' 			=> 'select',
+					'inputlabel'	=> __('Line 2 Text-Decoration', 'pagelines'),
+					'selectvalues' => array(
+						'none'	=> array('name' => __('None', 'pagelines') ),
+						'underline'	=> array('name' => __('Underline', 'pagelines') ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
+						'overline'		=> array('name' => __('Overline', 'pagelines') )
 					)
 				),
 				'bigtext-line-height-2'	=> array(
@@ -426,21 +480,26 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 2 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
 				),
 */
-				'bigtext-color-2'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Line 2 Text Color', 'pagelines')
-				),
-				'bigtext-color-2-stroke'	=> array(
-					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Line 2 Stroke Color<br/>(a 1px Outline)', 'pagelines')
-				),
-				'bigtext-color-2-shadow'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Line 2 Shadow Color', 'pagelines')
+				'bigtext-colors-2'	=> array(
+					'type'		    => 'color_multi',
+					'selectvalues'	=> array(
+						'bigtext-color-2'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel' 	=> __('Line 2 Text Color', 'pagelines')
+						),
+						'bigtext-color-2-stroke'	=> array(
+							'type'			=> 'colorpicker',
+							'inputlabel' 	=> __('Line 2 Stroke<br/>(a 1px Outline)', 'pagelines')
+						),
+						'bigtext-color-2-shadow'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel'	=> __('Line 2<br/>Shadow Color', 'pagelines')
+						)
+					)
 				),
 				'bigtext-color-2-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Line 2 Shadow Length (default: <em>2px</em> if color is set)', 'pagelines')
+					'inputlabel' 	=> __('Line 2 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			  )
 			),
@@ -455,12 +514,22 @@ class BigTextSection extends PageLinesSection {
 				),
 				'bigtext-text-align-3'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 3 Text-Align.', 'pagelines'),
+					'inputlabel'	=> __('Line 3 Text-Align', 'pagelines'),
 					'selectvalues' => array(
 						'center'	=> array('name' => __('Center', 'pagelines') ),
 						'left'		=> array('name' => __('Left', 'pagelines') ),
 						'right'		=> array('name' => __('Right', 'pagelines') ),
 						'justify'	=> array('name' => __('Justify', 'pagelines') )
+					)
+				),
+				'bigtext-text-decoration-3'=> array(
+					'type' 			=> 'select',
+					'inputlabel'	=> __('Line 3 Text-Decoration', 'pagelines'),
+					'selectvalues' => array(
+						'none'	=> array('name' => __('None', 'pagelines') ),
+						'underline'	=> array('name' => __('Underline', 'pagelines') ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
+						'overline'		=> array('name' => __('Overline', 'pagelines') )
 					)
 				),
 				'bigtext-line-height-3'	=> array(
@@ -477,21 +546,26 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 3 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
 				),
 */
-				'bigtext-color-3'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Line 3 Text Color', 'pagelines')
-				),
-				'bigtext-color-3-stroke'	=> array(
-					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Line 3 Stroke Color<br/>(a 1px Outline)', 'pagelines')
-				),
-				'bigtext-color-3-shadow'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Line 3 Shadow Color', 'pagelines')
+				'bigtext-colors-3'	=> array(
+					'type'		    => 'color_multi',
+					'selectvalues'	=> array(
+						'bigtext-color-3'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel' 	=> __('Line 3 Text Color', 'pagelines')
+						),
+						'bigtext-color-3-stroke'	=> array(
+							'type'			=> 'colorpicker',
+							'inputlabel' 	=> __('Line 3 Stroke<br/>(a 1px Outline)', 'pagelines')
+						),
+						'bigtext-color-3-shadow'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel'	=> __('Line 3<br/>Shadow Color', 'pagelines')
+						)
+					)
 				),
 				'bigtext-color-3-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Line 3 Shadow Length (default: <em>2px</em> if color is set)', 'pagelines')
+					'inputlabel' 	=> __('Line 3 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			  )
 			),
@@ -506,12 +580,22 @@ class BigTextSection extends PageLinesSection {
 				),
 				'bigtext-text-align-4'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 4 Text-Align.', 'pagelines'),
+					'inputlabel'	=> __('Line 4 Text-Align', 'pagelines'),
 					'selectvalues' => array(
 						'center'	=> array('name' => __('Center', 'pagelines') ),
 						'left'		=> array('name' => __('Left', 'pagelines') ),
 						'right'		=> array('name' => __('Right', 'pagelines') ),
 						'justify'	=> array('name' => __('Justify', 'pagelines') )
+					)
+				),
+				'bigtext-text-decoration-4'=> array(
+					'type' 			=> 'select',
+					'inputlabel'	=> __('Line 4 Text-Decoration', 'pagelines'),
+					'selectvalues' => array(
+						'none'	=> array('name' => __('None', 'pagelines') ),
+						'underline'	=> array('name' => __('Underline', 'pagelines') ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
+						'overline'		=> array('name' => __('Overline', 'pagelines') )
 					)
 				),
 				'bigtext-line-height-4'	=> array(
@@ -528,21 +612,26 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 4 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
 				),
 */
-				'bigtext-color-4'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Line 4 Text Color', 'pagelines')
-				),
-				'bigtext-color-4-stroke'	=> array(
-					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Line 4 Stroke Color<br/>(a 1px Outline)', 'pagelines')
-				),
-				'bigtext-color-4-shadow'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Line 4 Shadow Color', 'pagelines')
+				'bigtext-colors-4'	=> array(
+					'type'		    => 'color_multi',
+					'selectvalues'	=> array(
+						'bigtext-color-4'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel' 	=> __('Line 4 Text Color', 'pagelines')
+						),
+						'bigtext-color-4-stroke'	=> array(
+							'type'			=> 'colorpicker',
+							'inputlabel' 	=> __('Line 4 Stroke<br/>(a 1px Outline)', 'pagelines')
+						),
+						'bigtext-color-4-shadow'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel'	=> __('Line 4<br/>Shadow Color', 'pagelines')
+						)
+					)
 				),
 				'bigtext-color-4-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Line 4 Shadow Length (default: <em>2px</em> if color is set)', 'pagelines')
+					'inputlabel' 	=> __('Line 4 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			  )
 			),
@@ -557,12 +646,22 @@ class BigTextSection extends PageLinesSection {
 				),
 				'bigtext-text-align-5'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 5 Text-Align.', 'pagelines'),
+					'inputlabel'	=> __('Line 5 Text-Align', 'pagelines'),
 					'selectvalues' => array(
 						'center'	=> array('name' => __('Center', 'pagelines') ),
 						'left'		=> array('name' => __('Left', 'pagelines') ),
 						'right'		=> array('name' => __('Right', 'pagelines') ),
 						'justify'	=> array('name' => __('Justify', 'pagelines') )
+					)
+				),
+				'bigtext-text-decoration-5'=> array(
+					'type' 			=> 'select',
+					'inputlabel'	=> __('Line 5 Text-Decoration', 'pagelines'),
+					'selectvalues' => array(
+						'none'	=> array('name' => __('None', 'pagelines') ),
+						'underline'	=> array('name' => __('Underline', 'pagelines') ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
+						'overline'		=> array('name' => __('Overline', 'pagelines') )
 					)
 				),
 				'bigtext-line-height-5'	=> array(
@@ -579,21 +678,26 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 5 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
 				),
 */
-				'bigtext-color-5'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Line 5 Text Color', 'pagelines')
-				),
-				'bigtext-color-5-stroke'	=> array(
-					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Line 5 Stroke Color<br/>(a 1px Outline)', 'pagelines')
-				),
-				'bigtext-color-5-shadow'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Line 5 Shadow Color', 'pagelines')
+				'bigtext-colors-5'	=> array(
+					'type'		    => 'color_multi',
+					'selectvalues'	=> array(
+						'bigtext-color-5'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel' 	=> __('Line 5 Text Color', 'pagelines')
+						),
+						'bigtext-color-5-stroke'	=> array(
+							'type'			=> 'colorpicker',
+							'inputlabel' 	=> __('Line 5 Stroke<br/>(a 1px Outline)', 'pagelines')
+						),
+						'bigtext-color-5-shadow'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel'	=> __('Line 5<br/>Shadow Color', 'pagelines')
+						)
+					)
 				),
 				'bigtext-color-5-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Line 5 Shadow Length (default: <em>2px</em> if color is set)', 'pagelines')
+					'inputlabel' 	=> __('Line 5 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			  )
 			),
@@ -608,12 +712,22 @@ class BigTextSection extends PageLinesSection {
 				),
 				'bigtext-text-align-6'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 6 Text-Align.', 'pagelines'),
+					'inputlabel'	=> __('Line 6 Text-Align', 'pagelines'),
 					'selectvalues' => array(
 						'center'	=> array('name' => __('Center', 'pagelines') ),
 						'left'		=> array('name' => __('Left', 'pagelines') ),
 						'right'		=> array('name' => __('Right', 'pagelines') ),
 						'justify'	=> array('name' => __('Justify', 'pagelines') )
+					)
+				),
+				'bigtext-text-decoration-6'=> array(
+					'type' 			=> 'select',
+					'inputlabel'	=> __('Line 6 Text-Decoration', 'pagelines'),
+					'selectvalues' => array(
+						'none'	=> array('name' => __('None', 'pagelines') ),
+						'underline'	=> array('name' => __('Underline', 'pagelines') ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
+						'overline'		=> array('name' => __('Overline', 'pagelines') )
 					)
 				),
 				'bigtext-line-height-6'	=> array(
@@ -630,21 +744,26 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 6 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
 				),
 */
-				'bigtext-color-6'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Line 6 Text Color', 'pagelines')
-				),
-				'bigtext-color-6-stroke'	=> array(
-					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Line 6 Stroke Color<br/>(a 1px Outline)', 'pagelines')
-				),
-				'bigtext-color-6-shadow'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Line 6 Shadow Color', 'pagelines')
+				'bigtext-colors-6'	=> array(
+					'type'		    => 'color_multi',
+					'selectvalues'	=> array(
+						'bigtext-color-6'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel' 	=> __('Line 6 Text Color', 'pagelines')
+						),
+						'bigtext-color-6-stroke'	=> array(
+							'type'			=> 'colorpicker',
+							'inputlabel' 	=> __('Line 6 Stroke<br/>(a 1px Outline)', 'pagelines')
+						),
+						'bigtext-color-6-shadow'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel'	=> __('Line 6<br/>Shadow Color', 'pagelines')
+						)
+					)
 				),
 				'bigtext-color-6-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Line 6 Shadow Length (default: <em>2px</em> if color is set)', 'pagelines')
+					'inputlabel' 	=> __('Line 6 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			  )
 			),
@@ -659,12 +778,22 @@ class BigTextSection extends PageLinesSection {
 				),
 				'bigtext-text-align-7'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 7 Text-Align.', 'pagelines'),
+					'inputlabel'	=> __('Line 7 Text-Align', 'pagelines'),
 					'selectvalues' => array(
 						'center'	=> array('name' => __('Center', 'pagelines') ),
 						'left'		=> array('name' => __('Left', 'pagelines') ),
 						'right'		=> array('name' => __('Right', 'pagelines') ),
 						'justify'	=> array('name' => __('Justify', 'pagelines') )
+					)
+				),
+				'bigtext-text-decoration-7'=> array(
+					'type' 			=> 'select',
+					'inputlabel'	=> __('Line 7 Text-Decoration', 'pagelines'),
+					'selectvalues' => array(
+						'none'	=> array('name' => __('None', 'pagelines') ),
+						'underline'	=> array('name' => __('Underline', 'pagelines') ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
+						'overline'		=> array('name' => __('Overline', 'pagelines') )
 					)
 				),
 				'bigtext-line-height-7'	=> array(
@@ -681,21 +810,26 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 7 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
 				),
 */
-				'bigtext-color-7'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Line 7 Text Color', 'pagelines')
-				),
-				'bigtext-color-7-stroke'	=> array(
-					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Line 7 Stroke Color<br/>(a 1px Outline)', 'pagelines')
-				),
-				'bigtext-color-7-shadow'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Line 7 Shadow Color', 'pagelines')
+				'bigtext-colors-7'	=> array(
+					'type'		    => 'color_multi',
+					'selectvalues'	=> array(
+						'bigtext-color-7'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel' 	=> __('Line 7 Text Color', 'pagelines')
+						),
+						'bigtext-color-7-stroke'	=> array(
+							'type'			=> 'colorpicker',
+							'inputlabel' 	=> __('Line 7 Stroke<br/>(a 1px Outline)', 'pagelines')
+						),
+						'bigtext-color-7-shadow'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel'	=> __('Line 7<br/>Shadow Color', 'pagelines')
+						)
+					)
 				),
 				'bigtext-color-7-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Line 7 Shadow Length (default: <em>2px</em> if color is set)', 'pagelines')
+					'inputlabel' 	=> __('Line 7 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			  )
 			),
@@ -710,12 +844,22 @@ class BigTextSection extends PageLinesSection {
 				),
 				'bigtext-text-align-8'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 8 Text-Align.', 'pagelines'),
+					'inputlabel'	=> __('Line 8 Text-Align', 'pagelines'),
 					'selectvalues' => array(
 						'center'	=> array('name' => __('Center', 'pagelines') ),
 						'left'		=> array('name' => __('Left', 'pagelines') ),
 						'right'		=> array('name' => __('Right', 'pagelines') ),
 						'justify'	=> array('name' => __('Justify', 'pagelines') )
+					)
+				),
+				'bigtext-text-decoration-8'=> array(
+					'type' 			=> 'select',
+					'inputlabel'	=> __('Line 8 Text-Decoration', 'pagelines'),
+					'selectvalues' => array(
+						'none'	=> array('name' => __('None', 'pagelines') ),
+						'underline'	=> array('name' => __('Underline', 'pagelines') ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
+						'overline'		=> array('name' => __('Overline', 'pagelines') )
 					)
 				),
 				'bigtext-line-height-8'	=> array(
@@ -732,21 +876,26 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 8 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
 				),
 */
-				'bigtext-color-8'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Line 8 Text Color', 'pagelines')
-				),
-				'bigtext-color-8-stroke'	=> array(
-					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Line 8 Stroke Color<br/>(a 1px Outline)', 'pagelines')
-				),
-				'bigtext-color-8-shadow'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Line 8 Shadow Color', 'pagelines')
+				'bigtext-colors-8'	=> array(
+					'type'		    => 'color_multi',
+					'selectvalues'	=> array(
+						'bigtext-color-8'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel' 	=> __('Line 8 Text Color', 'pagelines')
+						),
+						'bigtext-color-8-stroke'	=> array(
+							'type'			=> 'colorpicker',
+							'inputlabel' 	=> __('Line 8 Stroke<br/>(a 1px Outline)', 'pagelines')
+						),
+						'bigtext-color-8-shadow'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel'	=> __('Line 8<br/>Shadow Color', 'pagelines')
+						)
+					)
 				),
 				'bigtext-color-8-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Line 8 Shadow Length (default: <em>2px</em> if color is set)', 'pagelines')
+					'inputlabel' 	=> __('Line 8 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			  )
 			),
@@ -761,12 +910,22 @@ class BigTextSection extends PageLinesSection {
 				),
 				'bigtext-text-align-9'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 9 Text-Align.', 'pagelines'),
+					'inputlabel'	=> __('Line 9 Text-Align', 'pagelines'),
 					'selectvalues' => array(
 						'center'	=> array('name' => __('Center', 'pagelines') ),
 						'left'		=> array('name' => __('Left', 'pagelines') ),
 						'right'		=> array('name' => __('Right', 'pagelines') ),
 						'justify'	=> array('name' => __('Justify', 'pagelines') )
+					)
+				),
+				'bigtext-text-decoration-9'=> array(
+					'type' 			=> 'select',
+					'inputlabel'	=> __('Line 9 Text-Decoration', 'pagelines'),
+					'selectvalues' => array(
+						'none'	=> array('name' => __('None', 'pagelines') ),
+						'underline'	=> array('name' => __('Underline', 'pagelines') ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
+						'overline'		=> array('name' => __('Overline', 'pagelines') )
 					)
 				),
 				'bigtext-line-height-9'	=> array(
@@ -783,21 +942,26 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 9 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
 				),
 */
-				'bigtext-color-9'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Line 9 Text Color', 'pagelines')
-				),
-				'bigtext-color-9-stroke'	=> array(
-					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Line 9 Stroke Color<br/>(a 1px Outline)', 'pagelines')
-				),
-				'bigtext-color-9-shadow'	=> array(
-					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Line 9 Shadow Color', 'pagelines')
+				'bigtext-colors-9'	=> array(
+					'type'		    => 'color_multi',
+					'selectvalues'	=> array(
+						'bigtext-color-9'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel' 	=> __('Line 9 Text Color', 'pagelines')
+						),
+						'bigtext-color-9-stroke'	=> array(
+							'type'			=> 'colorpicker',
+							'inputlabel' 	=> __('Line 9 Stroke<br/>(a 1px Outline)', 'pagelines')
+						),
+						'bigtext-color-9-shadow'	=> array(
+							'type'		    => 'colorpicker',
+							'inputlabel'	=> __('Line 9<br/>Shadow Color', 'pagelines')
+						)
+					)
 				),
 				'bigtext-color-9-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Line 9 Shadow Length (default: <em>2px</em> if color is set)', 'pagelines')
+					'inputlabel' 	=> __('Line 9 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			  )
 			)
@@ -1056,6 +1220,20 @@ class BigTextSection extends PageLinesSection {
 		$textalign8 = ploption('bigtext-text-align-8', $this->oset);
 		$textalign9 = ploption('bigtext-text-align-9', $this->oset);
 
+		// text-decoration
+		$textdecoration = ploption('bigtext-text-decoration', $this->oset) ? ploption('bigtext-text-decoration', $this->oset) : 'none' ;
+		// line-by-line text-decoration
+		$textdecoration0 = ploption('bigtext-text-decoration-0', $this->oset) ? ploption('bigtext-text-decoration-0', $this->oset) : 'none' ;
+		$textdecoration1 = ploption('bigtext-text-decoration-1', $this->oset) ? ploption('bigtext-text-decoration-1', $this->oset) : 'none' ;
+		$textdecoration2 = ploption('bigtext-text-decoration-2', $this->oset) ? ploption('bigtext-text-decoration-2', $this->oset) : 'none' ;
+		$textdecoration3 = ploption('bigtext-text-decoration-3', $this->oset) ? ploption('bigtext-text-decoration-3', $this->oset) : 'none' ;
+		$textdecoration4 = ploption('bigtext-text-decoration-4', $this->oset) ? ploption('bigtext-text-decoration-4', $this->oset) : 'none' ;
+		$textdecoration5 = ploption('bigtext-text-decoration-5', $this->oset) ? ploption('bigtext-text-decoration-5', $this->oset) : 'none' ;
+		$textdecoration6 = ploption('bigtext-text-decoration-6', $this->oset) ? ploption('bigtext-text-decoration-6', $this->oset) : 'none' ;
+		$textdecoration7 = ploption('bigtext-text-decoration-7', $this->oset) ? ploption('bigtext-text-decoration-7', $this->oset) : 'none' ;
+		$textdecoration8 = ploption('bigtext-text-decoration-8', $this->oset) ? ploption('bigtext-text-decoration-8', $this->oset) : 'none' ;
+		$textdecoration9 = ploption('bigtext-text-decoration-9', $this->oset) ? ploption('bigtext-text-decoration-9', $this->oset) : 'none' ;
+
 		// line-height
 		$lineheight = ploption('bigtext-line-height', $this->oset) ? ploption('bigtext-line-height', $this->oset) : '1';
 			$lineheight = esc_html($lineheight);
@@ -1097,7 +1275,7 @@ class BigTextSection extends PageLinesSection {
 
 
 		//start BigText Area
-		echo "<div id='bigtext-$clone_id' class='$contentclass bigtext' style='width: $width; max-width: $maxwidth; line-height: $lineheight; text-align: $textalign;";
+		echo "<div id='bigtext-$clone_id' class='$contentclass bigtext' style='width: $width; max-width: $maxwidth; line-height: $lineheight; text-align: $textalign; text-decoration:$textdecoration;";
 			if(!empty($color)){ echo " color: $color;"; }
 			if(!empty($colorbg)){ echo " background-color: $colorbg;"; }
 			if(!empty($bgimage)){ echo " $bgimagecode"; }
@@ -1110,7 +1288,7 @@ class BigTextSection extends PageLinesSection {
 		//text0
 			echo "<div class='bigtext btline0";
 				if(empty($exempt0)){ echo "'"; } else { echo " bigtext-exempt'"; }
-				echo " style='text-indent:inherit;"; // just so style tag isn't empty
+				echo " style='text-decoration:$textdecoration0;"; // just so style tag isn't empty
 				if(!empty($lineheight0)){ echo " line-height: $lineheight0;"; }
 				if(!empty($textalign0)){ echo " text-align: $textalign0;"; }
 				if(!empty($color0)){ echo " color: $color0;"; }
@@ -1122,7 +1300,7 @@ class BigTextSection extends PageLinesSection {
 		if(!empty($text1)) {
 			echo "<div class='bigtext btline1";
 				if(empty($exempt1)){ echo "'"; } else { echo " bigtext-exempt'"; }
-				echo " style='text-indent:inherit;";
+				echo " style='text-decoration:$textdecoration1;";
 				if(!empty($lineheight1)){ echo " line-height: $lineheight1;"; }
 				if(!empty($textalign1)){ echo " text-align: $textalign1;"; }
 				if(!empty($color1)){ echo " color: $color1;"; }
@@ -1135,7 +1313,7 @@ class BigTextSection extends PageLinesSection {
 		if(!empty($text2)) {
 			echo "<div class='bigtext btline2";
 				if(empty($exempt2)){ echo "'"; } else { echo " bigtext-exempt'"; }
-				echo " style='text-indent:inherit;";
+				echo " style='text-decoration:$textdecoration2;";
 				if(!empty($lineheight2)){ echo " line-height: $lineheight2;"; }
 				if(!empty($textalign2)){ echo " text-align: $textalign2;"; }
 				if(!empty($color2)){ echo " color: $color2;"; }
@@ -1148,7 +1326,7 @@ class BigTextSection extends PageLinesSection {
 		if(!empty($text3)) {
 			echo "<div class='bigtext btline3";
 				if(empty($exempt3)){ echo "'"; } else { echo " bigtext-exempt'"; }
-				echo " style='text-indent:inherit;";
+				echo " style='text-decoration:$textdecoration3;";
 				if(!empty($lineheight3)){ echo " line-height: $lineheight3;"; }
 				if(!empty($textalign3)){ echo " text-align: $textalign3;"; }
 				if(!empty($color3)){ echo " color: $color3;"; }
@@ -1161,7 +1339,7 @@ class BigTextSection extends PageLinesSection {
 		if(!empty($text4)) {
 			echo "<div class='bigtext btline4";
 				if(empty($exempt4)){ echo "'"; } else { echo " bigtext-exempt'"; }
-				echo " style='text-indent:inherit;";
+				echo " style='text-decoration:$textdecoration4;";
 				if(!empty($lineheight4)){ echo " line-height: $lineheight4;"; }
 				if(!empty($textalign4)){ echo " text-align: $textalign4;"; }
 				if(!empty($color4)){ echo " color: $color4;"; }
@@ -1174,7 +1352,7 @@ class BigTextSection extends PageLinesSection {
 		if(!empty($text5)) {
 			echo "<div class='bigtext btline5";
 				if(empty($exempt5)){ echo "'"; } else { echo " bigtext-exempt'"; }
-				echo " style='text-indent:inherit;";
+				echo " style='text-decoration:$textdecoration5;";
 				if(!empty($lineheight5)){ echo " line-height: $lineheight5;"; }
 				if(!empty($textalign5)){ echo " text-align: $textalign5;"; }
 				if(!empty($color5)){ echo " color: $color5;"; }
@@ -1187,7 +1365,7 @@ class BigTextSection extends PageLinesSection {
 		if(!empty($text6)) {
 			echo "<div class='bigtext btline6";
 				if(empty($exempt6)){ echo "'"; } else { echo " bigtext-exempt'"; }
-				echo " style='text-indent:inherit;";
+				echo " style='text-decoration:$textdecoration6;";
 				if(!empty($lineheight6)){ echo " line-height: $lineheight6;"; }
 				if(!empty($textalign6)){ echo " text-align: $textalign6;"; }
 				if(!empty($color6)){ echo " color: $color6;"; }
@@ -1200,7 +1378,7 @@ class BigTextSection extends PageLinesSection {
 		if(!empty($text7)) {
 			echo "<div class='bigtext btline7";
 				if(empty($exempt7)){ echo "'"; } else { echo " bigtext-exempt'"; }
-				echo " style='text-indent:inherit;";
+				echo " style='text-decoration:$textdecoration7;";
 				if(!empty($lineheight7)){ echo " line-height: $lineheight7;"; }
 				if(!empty($textalign7)){ echo " text-align: $textalign7;"; }
 				if(!empty($color7)){ echo " color: $color7;"; }
@@ -1213,7 +1391,7 @@ class BigTextSection extends PageLinesSection {
 		if(!empty($text8)) {
 			echo "<div class='bigtext btline8";
 				if(empty($exempt8)){ echo "'"; } else { echo " bigtext-exempt'"; }
-				echo " style='text-indent:inherit;";
+				echo " style='text-decoration:$textdecoration8;";
 				if(!empty($lineheight8)){ echo " line-height: $lineheight8;"; }
 				if(!empty($textalign8)){ echo " text-align: $textalign8;"; }
 				if(!empty($color8)){ echo " color: $color8;"; }
@@ -1226,7 +1404,7 @@ class BigTextSection extends PageLinesSection {
 		if(!empty($text9)) {
 			echo "<div class='bigtext btline9";
 				if(empty($exempt9)){ echo "'"; } else { echo " bigtext-exempt'"; }
-				echo " style='text-indent:inherit;";
+				echo " style='text-decoration:$textdecoration9;";
 				if(!empty($lineheight9)){ echo " line-height: $lineheight9;"; }
 				if(!empty($textalign9)){ echo " text-align: $textalign9;"; }
 				if(!empty($color9)){ echo " color: $color9;"; }
