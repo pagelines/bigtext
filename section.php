@@ -188,22 +188,17 @@ class BigTextSection extends PageLinesSection {
 					'type'			=> 'check',
 					'inputlabel'	=> __('Change text color to transparent. Warnings:<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Only works on Webkit browsers. Ignored on other browsers.<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Try setting text color to white or black as a backup for non-Webkit.<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Does not work as expected with Stroke/Outline or Shadow Colors.<br/><br/>', 'pagelines')
 				),
-				'bigtext-colors'	=> array(
-					'type'		    => 'color_multi',
-					'selectvalues'	=> array(
-						'bigtext-color'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel' 	=> __('Default Text Color', 'pagelines')
-						),
-						'bigtext-color-stroke'	=> array(
-							'type'			=> 'colorpicker',
-							'inputlabel' 	=> __('Stroke Color<br/>(a 1px Outline)', 'pagelines')
-						),
-						'bigtext-color-shadow'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel'	=> __('Default<br/>Shadow Color', 'pagelines')
-						)
-					)
+				'bigtext-color'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel' 	=> __('Default Text Color', 'pagelines')
+				),
+				'bigtext-color-stroke'	=> array(
+					'type'			=> 'colorpicker',
+					'inputlabel' 	=> __('Stroke Color<br/>(a 1px Outline)', 'pagelines')
+				),
+				'bigtext-color-shadow'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel'	=> __('Default<br/>Shadow Color', 'pagelines')
 				),
 				'bigtext-color-shadow-length' 	=> array(
 					'type'			=> 'text_small',
@@ -348,22 +343,17 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 0 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
 				),
 */
-				'bigtext-colors-0'	=> array(
-					'type'		    => 'color_multi',
-					'selectvalues'	=> array(
-						'bigtext-color-0'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel' 	=> __('Line 0 Text Color', 'pagelines')
-						),
-						'bigtext-color-0-stroke'	=> array(
-							'type'			=> 'colorpicker',
-							'inputlabel' 	=> __('Line 0 Stroke<br/>(a 1px Outline)', 'pagelines')
-						),
-						'bigtext-color-0-shadow'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel'	=> __('Line 0<br/>Shadow Color', 'pagelines')
-						)
-					)
+				'bigtext-color-0'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel' 	=> __('Line 0 Text Color', 'pagelines')
+				),
+				'bigtext-color-0-stroke'	=> array(
+					'type'			=> 'colorpicker',
+					'inputlabel' 	=> __('Line 0 Stroke<br/>(a 1px Outline)', 'pagelines')
+				),
+				'bigtext-color-0-shadow'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel'	=> __('Line 0<br/>Shadow Color', 'pagelines')
 				),
 				'bigtext-color-0-shadow-length' 	=> array(
 					'type'			=> 'text_small',
@@ -414,22 +404,17 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 1 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
 				),
 */
-				'bigtext-colors-1'	=> array(
-					'type'		    => 'color_multi',
-					'selectvalues'	=> array(
-						'bigtext-color-1'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel' 	=> __('Line 1 Text Color', 'pagelines')
-						),
-						'bigtext-color-1-stroke'	=> array(
-							'type'			=> 'colorpicker',
-							'inputlabel' 	=> __('Line 1 Stroke<br/>(a 1px Outline)', 'pagelines')
-						),
-						'bigtext-color-1-shadow'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel'	=> __('Line 1<br/>Shadow Color', 'pagelines')
-						)
-					)
+				'bigtext-color-1'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel' 	=> __('Line 1 Text Color', 'pagelines')
+				),
+				'bigtext-color-1-stroke'	=> array(
+					'type'			=> 'colorpicker',
+					'inputlabel' 	=> __('Line 1 Stroke<br/>(a 1px Outline)', 'pagelines')
+				),
+				'bigtext-color-1-shadow'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel'	=> __('Line 1<br/>Shadow Color', 'pagelines')
 				),
 				'bigtext-color-1-shadow-length' 	=> array(
 					'type'			=> 'text_small',
@@ -480,22 +465,17 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 2 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
 				),
 */
-				'bigtext-colors-2'	=> array(
-					'type'		    => 'color_multi',
-					'selectvalues'	=> array(
-						'bigtext-color-2'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel' 	=> __('Line 2 Text Color', 'pagelines')
-						),
-						'bigtext-color-2-stroke'	=> array(
-							'type'			=> 'colorpicker',
-							'inputlabel' 	=> __('Line 2 Stroke<br/>(a 1px Outline)', 'pagelines')
-						),
-						'bigtext-color-2-shadow'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel'	=> __('Line 2<br/>Shadow Color', 'pagelines')
-						)
-					)
+				'bigtext-color-2'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel' 	=> __('Line 2 Text Color', 'pagelines')
+				),
+				'bigtext-color-2-stroke'	=> array(
+					'type'			=> 'colorpicker',
+					'inputlabel' 	=> __('Line 2 Stroke<br/>(a 1px Outline)', 'pagelines')
+				),
+				'bigtext-color-2-shadow'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel'	=> __('Line 2<br/>Shadow Color', 'pagelines')
 				),
 				'bigtext-color-2-shadow-length' 	=> array(
 					'type'			=> 'text_small',
@@ -546,22 +526,17 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 3 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
 				),
 */
-				'bigtext-colors-3'	=> array(
-					'type'		    => 'color_multi',
-					'selectvalues'	=> array(
-						'bigtext-color-3'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel' 	=> __('Line 3 Text Color', 'pagelines')
-						),
-						'bigtext-color-3-stroke'	=> array(
-							'type'			=> 'colorpicker',
-							'inputlabel' 	=> __('Line 3 Stroke<br/>(a 1px Outline)', 'pagelines')
-						),
-						'bigtext-color-3-shadow'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel'	=> __('Line 3<br/>Shadow Color', 'pagelines')
-						)
-					)
+				'bigtext-color-3'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel' 	=> __('Line 3 Text Color', 'pagelines')
+				),
+				'bigtext-color-3-stroke'	=> array(
+					'type'			=> 'colorpicker',
+					'inputlabel' 	=> __('Line 3 Stroke<br/>(a 1px Outline)', 'pagelines')
+				),
+				'bigtext-color-3-shadow'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel'	=> __('Line 3<br/>Shadow Color', 'pagelines')
 				),
 				'bigtext-color-3-shadow-length' 	=> array(
 					'type'			=> 'text_small',
@@ -612,22 +587,17 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 4 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
 				),
 */
-				'bigtext-colors-4'	=> array(
-					'type'		    => 'color_multi',
-					'selectvalues'	=> array(
-						'bigtext-color-4'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel' 	=> __('Line 4 Text Color', 'pagelines')
-						),
-						'bigtext-color-4-stroke'	=> array(
-							'type'			=> 'colorpicker',
-							'inputlabel' 	=> __('Line 4 Stroke<br/>(a 1px Outline)', 'pagelines')
-						),
-						'bigtext-color-4-shadow'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel'	=> __('Line 4<br/>Shadow Color', 'pagelines')
-						)
-					)
+				'bigtext-color-4'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel' 	=> __('Line 4 Text Color', 'pagelines')
+				),
+				'bigtext-color-4-stroke'	=> array(
+					'type'			=> 'colorpicker',
+					'inputlabel' 	=> __('Line 4 Stroke<br/>(a 1px Outline)', 'pagelines')
+				),
+				'bigtext-color-4-shadow'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel'	=> __('Line 4<br/>Shadow Color', 'pagelines')
 				),
 				'bigtext-color-4-shadow-length' 	=> array(
 					'type'			=> 'text_small',
@@ -678,22 +648,17 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 5 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
 				),
 */
-				'bigtext-colors-5'	=> array(
-					'type'		    => 'color_multi',
-					'selectvalues'	=> array(
-						'bigtext-color-5'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel' 	=> __('Line 5 Text Color', 'pagelines')
-						),
-						'bigtext-color-5-stroke'	=> array(
-							'type'			=> 'colorpicker',
-							'inputlabel' 	=> __('Line 5 Stroke<br/>(a 1px Outline)', 'pagelines')
-						),
-						'bigtext-color-5-shadow'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel'	=> __('Line 5<br/>Shadow Color', 'pagelines')
-						)
-					)
+				'bigtext-color-5'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel' 	=> __('Line 5 Text Color', 'pagelines')
+				),
+				'bigtext-color-5-stroke'	=> array(
+					'type'			=> 'colorpicker',
+					'inputlabel' 	=> __('Line 5 Stroke<br/>(a 1px Outline)', 'pagelines')
+				),
+				'bigtext-color-5-shadow'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel'	=> __('Line 5<br/>Shadow Color', 'pagelines')
 				),
 				'bigtext-color-5-shadow-length' 	=> array(
 					'type'			=> 'text_small',
@@ -744,22 +709,17 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 6 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
 				),
 */
-				'bigtext-colors-6'	=> array(
-					'type'		    => 'color_multi',
-					'selectvalues'	=> array(
-						'bigtext-color-6'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel' 	=> __('Line 6 Text Color', 'pagelines')
-						),
-						'bigtext-color-6-stroke'	=> array(
-							'type'			=> 'colorpicker',
-							'inputlabel' 	=> __('Line 6 Stroke<br/>(a 1px Outline)', 'pagelines')
-						),
-						'bigtext-color-6-shadow'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel'	=> __('Line 6<br/>Shadow Color', 'pagelines')
-						)
-					)
+				'bigtext-color-6'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel' 	=> __('Line 6 Text Color', 'pagelines')
+				),
+				'bigtext-color-6-stroke'	=> array(
+					'type'			=> 'colorpicker',
+					'inputlabel' 	=> __('Line 6 Stroke<br/>(a 1px Outline)', 'pagelines')
+				),
+				'bigtext-color-6-shadow'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel'	=> __('Line 6<br/>Shadow Color', 'pagelines')
 				),
 				'bigtext-color-6-shadow-length' 	=> array(
 					'type'			=> 'text_small',
@@ -810,22 +770,17 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 7 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
 				),
 */
-				'bigtext-colors-7'	=> array(
-					'type'		    => 'color_multi',
-					'selectvalues'	=> array(
-						'bigtext-color-7'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel' 	=> __('Line 7 Text Color', 'pagelines')
-						),
-						'bigtext-color-7-stroke'	=> array(
-							'type'			=> 'colorpicker',
-							'inputlabel' 	=> __('Line 7 Stroke<br/>(a 1px Outline)', 'pagelines')
-						),
-						'bigtext-color-7-shadow'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel'	=> __('Line 7<br/>Shadow Color', 'pagelines')
-						)
-					)
+				'bigtext-color-7'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel' 	=> __('Line 7 Text Color', 'pagelines')
+				),
+				'bigtext-color-7-stroke'	=> array(
+					'type'			=> 'colorpicker',
+					'inputlabel' 	=> __('Line 7 Stroke<br/>(a 1px Outline)', 'pagelines')
+				),
+				'bigtext-color-7-shadow'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel'	=> __('Line 7<br/>Shadow Color', 'pagelines')
 				),
 				'bigtext-color-7-shadow-length' 	=> array(
 					'type'			=> 'text_small',
@@ -876,22 +831,17 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 8 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
 				),
 */
-				'bigtext-colors-8'	=> array(
-					'type'		    => 'color_multi',
-					'selectvalues'	=> array(
-						'bigtext-color-8'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel' 	=> __('Line 8 Text Color', 'pagelines')
-						),
-						'bigtext-color-8-stroke'	=> array(
-							'type'			=> 'colorpicker',
-							'inputlabel' 	=> __('Line 8 Stroke<br/>(a 1px Outline)', 'pagelines')
-						),
-						'bigtext-color-8-shadow'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel'	=> __('Line 8<br/>Shadow Color', 'pagelines')
-						)
-					)
+				'bigtext-color-8'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel' 	=> __('Line 8 Text Color', 'pagelines')
+				),
+				'bigtext-color-8-stroke'	=> array(
+					'type'			=> 'colorpicker',
+					'inputlabel' 	=> __('Line 8 Stroke<br/>(a 1px Outline)', 'pagelines')
+				),
+				'bigtext-color-8-shadow'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel'	=> __('Line 8<br/>Shadow Color', 'pagelines')
 				),
 				'bigtext-color-8-shadow-length' 	=> array(
 					'type'			=> 'text_small',
@@ -942,22 +892,17 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 9 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
 				),
 */
-				'bigtext-colors-9'	=> array(
-					'type'		    => 'color_multi',
-					'selectvalues'	=> array(
-						'bigtext-color-9'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel' 	=> __('Line 9 Text Color', 'pagelines')
-						),
-						'bigtext-color-9-stroke'	=> array(
-							'type'			=> 'colorpicker',
-							'inputlabel' 	=> __('Line 9 Stroke<br/>(a 1px Outline)', 'pagelines')
-						),
-						'bigtext-color-9-shadow'	=> array(
-							'type'		    => 'colorpicker',
-							'inputlabel'	=> __('Line 9<br/>Shadow Color', 'pagelines')
-						)
-					)
+				'bigtext-color-9'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel' 	=> __('Line 9 Text Color', 'pagelines')
+				),
+				'bigtext-color-9-stroke'	=> array(
+					'type'			=> 'colorpicker',
+					'inputlabel' 	=> __('Line 9 Stroke<br/>(a 1px Outline)', 'pagelines')
+				),
+				'bigtext-color-9-shadow'	=> array(
+					'type'		    => 'colorpicker',
+					'inputlabel'	=> __('Line 9<br/>Shadow Color', 'pagelines')
 				),
 				'bigtext-color-9-shadow-length' 	=> array(
 					'type'			=> 'text_small',
