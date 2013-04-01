@@ -86,8 +86,9 @@ class BigTextSection extends PageLinesSection {
 
 		$settings = wp_parse_args($settings, $this->optionator_default);
 
-		$options = array(
-		'bigtext-container' => array(
+		$options = array();
+
+		$options['bigtext-container'] = array(
 			'docslink'	=> 'http://www.pagelinestheme.com/bigtext-section?utm_source=pagelines&utm_medium=section&utm_content=docslink&utm_campaign=bigtext_section',
 			'type'		=> 'multi_option',
 			'title'		=> __('BigText Container Settings.', 'pagelines'),
@@ -148,8 +149,9 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Min Font-Size (MUST BE IN PX, with or w/o "px")<br/>&nbsp;&nbsp;&nbsp;Default = Null/Zero', 'pagelines')
 				)
 			)
-		),
-		'bigtext-defaults' => array(
+		);
+
+		$options['bigtext-defaults'] = array(
 			'type'		=> 'multi_option',
 			'title'		=> __('BigText Default Settings to set all line options.', 'pagelines'),
 			'shortexp'	=> __('Set once here and/or set line-by-line to override.', 'pagelines'),
@@ -205,10 +207,11 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel' 	=> __('Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			)
-		),
-		'bigtext-text' => array(
+		);
+
+		$options['bigtext-text'] = array(
 			'type'		=> 'multi_option',
-			'title'		=> __('Enter your BigText here', 'pagelines'),
+			'title'		=> __('Enter your BigText here.', 'pagelines'),
 			'shortexp'	=> __('Everything you enter per line will resize to fill the entire width. Blank lines will be skipped.<br/>You may enter HTML code and/or use shortcodes.<br/>Consider entering one or more <em>nbsp;</em> on each side of a line of text to pseudo-indent it.', 'pagelines'),
 			'selectvalues'	=> array(
 				'bigtext-text-0'	=> array(
@@ -252,8 +255,9 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Line 9 Text', 'pagelines')
 				),
 			  )
-			),
-		'bigtext-exempt' => array(
+			);
+
+		$options['bigtext-exempt'] = array(
 			'type'		=> 'multi_option',
 			'title'		=> __('You may exempt specific lines from the BigText re-sizing effect.', 'pagelines'),
 			'shortexp'	=> __('Exempt lines will be displayed at the sitewide font size.', 'pagelines'),
@@ -299,8 +303,24 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Exempt Line 9', 'pagelines')
 				),
 			  )
-			),
-		'bigtext-0' => array(
+			);
+
+		/*
+$options['bigtext-options-controller'] = array(
+			'title'					=> __( 'BigText Options Controller', 'pagelines' ),
+			'shortexp'				=> __( 'Control which BigText options are displayed.', 'pagelines' ),
+			'exp'					=> __( 'To show the new options:<br/>1) Check the box<br/>2) Save<br/>3) Refresh', 'pagelines' ),
+			'type' => 'check_multi',
+			'selectvalues'=> array(
+				'bigtext-options-line-by-line' => array(
+					'inputlabel' 	=> __('Show Line-by-Line Styling?<br/>(e.g. font picker, alignment, small-caps, colors, etc.)', 'pagelines')
+				)
+			)
+		);
+
+	if(ploption('bigtext-options-line-by-line') == 'on')
+*/ {
+		$options['bigtext-0'] = array(
 			'type'		=> 'multi_option',
 			'title'		=> __('BigText Line 0', 'pagelines'),
 			'shortexp'	=> __('These line-by-line settings are optional.', 'pagelines'),
@@ -360,8 +380,9 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel' 	=> __('Line 0 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			  )
-			),
-		'bigtext-1' => array(
+			);
+
+		$options['bigtext-1'] = array(
 			'type'		=> 'multi_option',
 			'title'		=> __('BigText Line 1', 'pagelines'),
 			'shortexp'	=> __('These line-by-line settings are optional.', 'pagelines'),
@@ -421,8 +442,9 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel' 	=> __('Line 1 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			  )
-			),
-		'bigtext-2' => array(
+			);
+
+		$options['bigtext-2'] = array(
 			'type'		=> 'multi_option',
 			'title'		=> __('BigText Line 2', 'pagelines'),
 			'shortexp'	=> __('These line-by-line settings are optional.', 'pagelines'),
@@ -482,8 +504,9 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel' 	=> __('Line 2 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			  )
-			),
-		'bigtext-3' => array(
+			);
+
+		$options['bigtext-3'] = array(
 			'type'		=> 'multi_option',
 			'title'		=> __('BigText Line 3', 'pagelines'),
 			'shortexp'	=> __('These line-by-line settings are optional.', 'pagelines'),
@@ -543,8 +566,9 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel' 	=> __('Line 3 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			  )
-			),
-		'bigtext-4' => array(
+			);
+
+		$options['bigtext-4'] = array(
 			'type'		=> 'multi_option',
 			'title'		=> __('BigText Line 4', 'pagelines'),
 			'shortexp'	=> __('These line-by-line settings are optional.', 'pagelines'),
@@ -604,8 +628,9 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel' 	=> __('Line 4 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			  )
-			),
-		'bigtext-5' => array(
+			);
+
+		$options['bigtext-5'] = array(
 			'type'		=> 'multi_option',
 			'title'		=> __('BigText Line 5', 'pagelines'),
 			'shortexp'	=> __('These line-by-line settings are optional.', 'pagelines'),
@@ -665,8 +690,9 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel' 	=> __('Line 5 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			  )
-			),
-		'bigtext-6' => array(
+			);
+
+		$options['bigtext-6'] = array(
 			'type'		=> 'multi_option',
 			'title'		=> __('BigText Line 6', 'pagelines'),
 			'shortexp'	=> __('These line-by-line settings are optional.', 'pagelines'),
@@ -726,8 +752,9 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel' 	=> __('Line 6 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			  )
-			),
-		'bigtext-7' => array(
+			);
+
+		$options['bigtext-7'] = array(
 			'type'		=> 'multi_option',
 			'title'		=> __('BigText Line 7', 'pagelines'),
 			'shortexp'	=> __('These line-by-line settings are optional.', 'pagelines'),
@@ -787,8 +814,9 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel' 	=> __('Line 7 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			  )
-			),
-		'bigtext-8' => array(
+			);
+
+		$options['bigtext-8'] = array(
 			'type'		=> 'multi_option',
 			'title'		=> __('BigText Line 8', 'pagelines'),
 			'shortexp'	=> __('These line-by-line settings are optional.', 'pagelines'),
@@ -848,8 +876,9 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel' 	=> __('Line 8 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			  )
-			),
-		'bigtext-9' => array(
+			);
+
+		$options['bigtext-9'] = array(
 			'type'		=> 'multi_option',
 			'title'		=> __('BigText Line 9', 'pagelines'),
 			'shortexp'	=> __('These line-by-line settings are optional.', 'pagelines'),
@@ -909,9 +938,8 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel' 	=> __('Line 9 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
 				)
 			  )
-			)
-		);
-
+			);
+		}
 
 
 
