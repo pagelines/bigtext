@@ -4,7 +4,7 @@ Section: BigText
 Author: Clifford Paulick
 Author URI: http://tourkick.com/?utm_source=pagelines&utm_medium=section&utm_content=authoruri&utm_campaign=bigtext_section
 Plugin URI: http://www.pagelinestheme.com/bigtext-section?utm_source=pagelines&utm_medium=section&utm_content=pluginuri&utm_campaign=bigtext_section
-Version: 1.1.20130401
+Version: 1.1.20130701
 Description: A <a href="https://github.com/zachleat/BigText" target="_blank">BigText</a> section that resizes text to fit one or more words on a line that fits the container, and is responsive which means it scales with different size browsers. Like <a href="www.pagelines.com/store/sections/fittext-section/" target="_blank">FitText</a> but more customizable!
 Demo: http://www.pagelinestheme.com/bigtext-section?utm_source=pagelines&utm_medium=section&utm_content=demolink&utm_campaign=bigtext_section
 Class Name: BigTextSection
@@ -86,33 +86,40 @@ class BigTextSection extends PageLinesSection {
 
 		$settings = wp_parse_args($settings, $this->optionator_default);
 
+		global $post_ID;
+		$oset = array(
+			'post_id'  => $post_ID,
+			'clone_id' => $settings['clone_id'],
+			'type'     => $settings['type']
+		);
+
 		$options = array();
 
 		$options['bigtext-container'] = array(
 			'docslink'	=> 'http://www.pagelinestheme.com/bigtext-section?utm_source=pagelines&utm_medium=section&utm_content=docslink&utm_campaign=bigtext_section',
 			'type'		=> 'multi_option',
-			'title'		=> __('BigText Container Settings.', 'pagelines'),
-			'shortexp'	=> __('Control it.', 'pagelines'),
+			'title'		=> __('BigText Container Settings.', $this->id),
+			'shortexp'	=> __('Control it.', $this->id),
 			'selectvalues'	=> array(
 				'bigtext-wrapper-class'	=> array(
 					'type'			=> 'text',
-					'inputlabel'	=> __('Add your own <strong>Wrapper/Container</strong> CSS class.<br/>&nbsp;&nbsp;&nbsp;Try <em>wellnotrounded</em>, <em>wellnotrounded-small</em>, or <em>wellnotrounded-large</em> to get a full-width Bootstrap Well without rounded corners.<br/>&nbsp;&nbsp;&nbsp;<strong>Separate multiple custom CSS classes with a space.</strong>', 'pagelines')
+					'inputlabel'	=> __('Add your own <strong>Wrapper/Container</strong> CSS class.<br/>&nbsp;&nbsp;&nbsp;Try <em>wellnotrounded</em>, <em>wellnotrounded-small</em>, or <em>wellnotrounded-large</em> to get a full-width Bootstrap Well without rounded corners.<br/>&nbsp;&nbsp;&nbsp;<strong>Separate multiple custom CSS classes with a space.</strong>', $this->id)
 				),
 				'bigtext-content-class'	=> array(
 					'type'			=> 'text',
-					'inputlabel'	=> __('Add your own <strong>Content Area</strong> CSS class.<br/>&nbsp;&nbsp;&nbsp;Try <em>well</em> to get a Bootstrap Well.<br/>Try using <em>rounded</em> to round the corners of the background color, if chosen.<br/>&nbsp;&nbsp;&nbsp;<strong>Separate multiple custom CSS classes with a space.</strong>', 'pagelines')
+					'inputlabel'	=> __('Add your own <strong>Content Area</strong> CSS class.<br/>&nbsp;&nbsp;&nbsp;Try <em>well</em> to get a Bootstrap Well.<br/>Try using <em>rounded</em> to round the corners of the background color, if chosen.<br/>&nbsp;&nbsp;&nbsp;<strong>Separate multiple custom CSS classes with a space.</strong>', $this->id)
 				),
 				'bigtext-color-bg'	=> array(
 					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Background Color', 'pagelines')
+					'inputlabel' 	=> __('Background Color', $this->id)
 				),
 				'bigtext-image-bg'	=> array(
 					'type'			=> 'image_upload',
-					'inputlabel' 	=> __('Background Image', 'pagelines')
+					'inputlabel' 	=> __('Background Image', $this->id)
 				),
 				'bigtext-image-bg-size'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Background Image Size.<br/>&nbsp;&nbsp;&nbsp;Default = <em>None / Auto</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/background-size" target="_blank">CSS background-size</a>', 'pagelines'),
+					'inputlabel'	=> __('Background Image Size.<br/>&nbsp;&nbsp;&nbsp;Default = <em>None / Auto</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/background-size" target="_blank">CSS background-size</a>', $this->id),
 					'selectvalues' => array(
 						'contain'	=> array('name' => 'Contain' ),
 						'cover'		=> array('name' => 'Cover' )
@@ -120,826 +127,835 @@ class BigTextSection extends PageLinesSection {
 				),
 				'bigtext-image-bg-position'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Background Image Position.<br/>&nbsp;&nbsp;&nbsp;Default = <em>center center</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/background-position" target="_blank">CSS background-position</a>, <a href="http://www.w3schools.com/cssref/playit.asp?filename=playcss_background-position" target="_blank">Try It Out</a>', 'pagelines'),
+					'inputlabel'	=> __('Background Image Position.<br/>&nbsp;&nbsp;&nbsp;Default = <em>center center</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/background-position" target="_blank">CSS background-position</a>, <a href="http://www.w3schools.com/cssref/playit.asp?filename=playcss_background-position" target="_blank">Try It Out</a>', $this->id),
 					'selectvalues' => array(
-						'left top'		=> array('name' => __('Left Top', 'pagelines') ),
-						'left center'	=> array('name' => __('Left Center', 'pagelines') ),
-						'left bottom'	=> array('name' => __('Left Bottom', 'pagelines') ),
-						'right top'		=> array('name' => __('Right Top', 'pagelines') ),
-						'right center'	=> array('name' => __('Right Center', 'pagelines') ),
-						'right bottom'	=> array('name' => __('Right Bottom', 'pagelines') ),
-						'center top'	=> array('name' => __('Center Top', 'pagelines') ),
-						'center bottom'	=> array('name' => __('Center Bottom', 'pagelines') )
+						'left top'		=> array('name' => __('Left Top', $this->id) ),
+						'left center'	=> array('name' => __('Left Center', $this->id) ),
+						'left bottom'	=> array('name' => __('Left Bottom', $this->id) ),
+						'right top'		=> array('name' => __('Right Top', $this->id) ),
+						'right center'	=> array('name' => __('Right Center', $this->id) ),
+						'right bottom'	=> array('name' => __('Right Bottom', $this->id) ),
+						'center top'	=> array('name' => __('Center Top', $this->id) ),
+						'center bottom'	=> array('name' => __('Center Bottom', $this->id) )
 					)
 				),
 				'bigtext-width'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> __('Width of BigText area (any units: %, px, em, etc).<br/>&nbsp;&nbsp;&nbsp;Default = <em>100%</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/width" target="_blank">CSS width</a>', 'pagelines')
+					'inputlabel'	=> __('Width of BigText area (any units: %, px, em, etc).<br/>&nbsp;&nbsp;&nbsp;Default = <em>100%</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/width" target="_blank">CSS width</a>', $this->id)
 				),
 				'bigtext-max-width'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> __('Max-Width of BigText area (any units: %, px, em, etc).<br/>&nbsp;&nbsp;&nbsp;Default = <em>100%</em> (which makes it responsive)<br/><a href="https://developer.mozilla.org/en-US/docs/CSS/max-width" target="_blank">CSS max-width</a>', 'pagelines')
+					'inputlabel'	=> __('Max-Width of BigText area (any units: %, px, em, etc).<br/>&nbsp;&nbsp;&nbsp;Default = <em>100%</em> (which makes it responsive)<br/><a href="https://developer.mozilla.org/en-US/docs/CSS/max-width" target="_blank">CSS max-width</a>', $this->id)
 				),
 				'bigtext-maxfontsize'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> __('Max Font-Size (MUST BE IN PX, with or w/o "px")<br/>&nbsp;&nbsp;&nbsp;Default = <em>528</em>', 'pagelines')
+					'inputlabel'	=> __('Max Font-Size (MUST BE IN PX, with or w/o "px")<br/>&nbsp;&nbsp;&nbsp;Default = <em>528</em>', $this->id)
 				),
 				'bigtext-minfontsize'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> __('Min Font-Size (MUST BE IN PX, with or w/o "px")<br/>&nbsp;&nbsp;&nbsp;Default = Null/Zero', 'pagelines')
+					'inputlabel'	=> __('Min Font-Size (MUST BE IN PX, with or w/o "px")<br/>&nbsp;&nbsp;&nbsp;Default = Null/Zero', $this->id)
 				)
 			)
 		);
 
 		$options['bigtext-defaults'] = array(
 			'type'		=> 'multi_option',
-			'title'		=> __('BigText Default Settings to set all line options.', 'pagelines'),
-			'shortexp'	=> __('Set once here and/or set line-by-line to override.', 'pagelines'),
+			'title'		=> __('BigText Default Settings to set all line options.', $this->id),
+			'shortexp'	=> __('Set once here and/or set line-by-line to override.', $this->id),
 			'selectvalues'	=> array(
 				'bigtext-font'	=> array(
 					'type'			=> 'fonts',
-					'inputlabel'	=> __('Default Font', 'pagelines')
+					'inputlabel'	=> __('Default Font', $this->id)
 				),
 				'bigtext-text-align'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('BigText Text-Align<br/>&nbsp;&nbsp;&nbsp;Default = <em>center</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/text-align" target="_blank">CSS text-align</a>', 'pagelines'),
+					'inputlabel'	=> __('BigText Text-Align<br/>&nbsp;&nbsp;&nbsp;Default = <em>center</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/text-align" target="_blank">CSS text-align</a>', $this->id),
 					'selectvalues' => array(
-						'left'		=> array('name' => __('Left', 'pagelines') ),
-						'right'		=> array('name' => __('Right', 'pagelines') ),
-						'justify'	=> array('name' => __('Justify', 'pagelines') )
+						'left'		=> array('name' => __('Left', $this->id) ),
+						'right'		=> array('name' => __('Right', $this->id) ),
+						'justify'	=> array('name' => __('Justify', $this->id) )
 					)
 				),
 				'bigtext-text-decoration'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Text-Decoration.<br/>&nbsp;&nbsp;&nbsp;Default = <em>None</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/text-decoration" target="_blank">CSS text-decoration</a>', 'pagelines'),
+					'inputlabel'	=> __('Text-Decoration.<br/>&nbsp;&nbsp;&nbsp;Default = <em>None</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/text-decoration" target="_blank">CSS text-decoration</a>', $this->id),
 					'selectvalues' => array(
-						'underline'	=> array('name' => __('Underline', 'pagelines') ),
-						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
-						'overline'		=> array('name' => __('Overline', 'pagelines') )
+						'underline'	=> array('name' => __('Underline', $this->id) ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', $this->id) ),
+						'overline'		=> array('name' => __('Overline', $this->id) )
 					)
 				),
 				'bigtext-line-height'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> __('BigText Line-Height (e.g. 0.9).<br/>&nbsp;&nbsp;&nbsp;Default = <em>1</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/line-height" target="_blank">CSS line-height</a>', 'pagelines')
+					'inputlabel'	=> __('BigText Line-Height (e.g. 0.9).<br/>&nbsp;&nbsp;&nbsp;Default = <em>1</em><br/><a href="https://developer.mozilla.org/en-US/docs/CSS/line-height" target="_blank">CSS line-height</a>', $this->id)
 				),
 				'bigtext-small-caps'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Display in small-caps?', 'pagelines')
+					'inputlabel'	=> __('Display in small-caps?', $this->id)
 				),
 				'bigtext-transparent-text'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Change text color to transparent. Warnings:<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Only works on Webkit browsers. Ignored on other browsers.<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Try setting text color to white or black as a backup for non-Webkit.<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Does not work as expected with Stroke/Outline or Shadow Colors.<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Change text color to transparent. Warnings:<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Only works on Webkit browsers. Ignored on other browsers.<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Try setting text color to white or black as a backup for non-Webkit.<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Does not work as expected with Stroke/Outline or Shadow Colors.<br/><br/>', $this->id)
 				),
 				'bigtext-color'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Default Text Color', 'pagelines')
+					'inputlabel' 	=> __('Default Text Color', $this->id)
 				),
 				'bigtext-color-stroke'	=> array(
 					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Stroke Color<br/>(a 1px Outline)', 'pagelines')
+					'inputlabel' 	=> __('Stroke Color<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-shadow'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Default<br/>Shadow Color', 'pagelines')
+					'inputlabel'	=> __('Default<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
+					'inputlabel' 	=> __('Shadow Length (default: <em>2px</em> if Shadow Color is set)', $this->id)
 				)
 			)
 		);
 
 		$options['bigtext-text'] = array(
 			'type'		=> 'multi_option',
-			'title'		=> __('Enter your BigText here.', 'pagelines'),
-			'shortexp'	=> __('Everything you enter per line will resize to fill the entire width. Blank lines will be skipped.<br/>You may enter HTML code and/or use shortcodes.<br/>Consider entering one or more <em>nbsp;</em> on each side of a line of text to pseudo-indent it.', 'pagelines'),
+			'title'		=> __('Enter your BigText here.', $this->id),
+			'shortexp'	=> __('Everything you enter per line will resize to fill the entire width. Blank lines will be skipped.<br/>You may enter HTML code and/or use shortcodes.<br/>Consider entering one or more <em>nbsp;</em> on each side of a line of text to pseudo-indent it.', $this->id),
 			'selectvalues'	=> array(
 				'bigtext-text-0'	=> array(
 					'type'			=> 'text',
-					'inputlabel'	=> __('Line 0 Text <em>(Required)</em>', 'pagelines')
+					'inputlabel'	=> __('Line 0 Text <em>(Required)</em>', $this->id)
 				),
 				'bigtext-text-1'	=> array(
 					'type'			=> 'text',
-					'inputlabel'	=> __('Line 1 Text', 'pagelines')
+					'inputlabel'	=> __('Line 1 Text', $this->id)
 				),
 				'bigtext-text-2'	=> array(
 					'type'			=> 'text',
-					'inputlabel'	=> __('Line 2 Text', 'pagelines')
+					'inputlabel'	=> __('Line 2 Text', $this->id)
 				),
 				'bigtext-text-3'	=> array(
 					'type'			=> 'text',
-					'inputlabel'	=> __('Line 3 Text', 'pagelines')
+					'inputlabel'	=> __('Line 3 Text', $this->id)
 				),
 				'bigtext-text-4'	=> array(
 					'type'			=> 'text',
-					'inputlabel'	=> __('Line 4 Text', 'pagelines')
+					'inputlabel'	=> __('Line 4 Text', $this->id)
 				),
 				'bigtext-text-5'	=> array(
 					'type'			=> 'text',
-					'inputlabel'	=> __('Line 5 Text', 'pagelines')
+					'inputlabel'	=> __('Line 5 Text', $this->id)
 				),
 				'bigtext-text-6'	=> array(
 					'type'			=> 'text',
-					'inputlabel'	=> __('Line 6 Text', 'pagelines')
+					'inputlabel'	=> __('Line 6 Text', $this->id)
 				),
 				'bigtext-text-7'	=> array(
 					'type'			=> 'text',
-					'inputlabel'	=> __('Line 7 Text', 'pagelines')
+					'inputlabel'	=> __('Line 7 Text', $this->id)
 				),
 				'bigtext-text-8'	=> array(
 					'type'			=> 'text',
-					'inputlabel'	=> __('Line 8 Text', 'pagelines')
+					'inputlabel'	=> __('Line 8 Text', $this->id)
 				),
 				'bigtext-text-9'	=> array(
 					'type'			=> 'text',
-					'inputlabel'	=> __('Line 9 Text', 'pagelines')
+					'inputlabel'	=> __('Line 9 Text', $this->id)
 				),
 			  )
 			);
 
 		$options['bigtext-exempt'] = array(
 			'type'		=> 'multi_option',
-			'title'		=> __('You may exempt specific lines from the BigText re-sizing effect.', 'pagelines'),
-			'shortexp'	=> __('Exempt lines will be displayed at the sitewide font size.', 'pagelines'),
+			'title'		=> __('You may exempt specific lines from the BigText re-sizing effect.', $this->id),
+			'shortexp'	=> __('Exempt lines will be displayed at the sitewide font size.', $this->id),
 			'selectvalues'	=> array(
 				'bigtext-exempt-0'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Exempt Line 0', 'pagelines')
+					'inputlabel'	=> __('Exempt Line 0', $this->id)
 				),
 				'bigtext-exempt-1'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Exempt Line 1', 'pagelines')
+					'inputlabel'	=> __('Exempt Line 1', $this->id)
 				),
 				'bigtext-exempt-2'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Exempt Line 2', 'pagelines')
+					'inputlabel'	=> __('Exempt Line 2', $this->id)
 				),
 				'bigtext-exempt-3'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Exempt Line 3', 'pagelines')
+					'inputlabel'	=> __('Exempt Line 3', $this->id)
 				),
 				'bigtext-exempt-4'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Exempt Line 4', 'pagelines')
+					'inputlabel'	=> __('Exempt Line 4', $this->id)
 				),
 				'bigtext-exempt-5'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Exempt Line 5', 'pagelines')
+					'inputlabel'	=> __('Exempt Line 5', $this->id)
 				),
 				'bigtext-exempt-6'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Exempt Line 6', 'pagelines')
+					'inputlabel'	=> __('Exempt Line 6', $this->id)
 				),
 				'bigtext-exempt-7'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Exempt Line 7', 'pagelines')
+					'inputlabel'	=> __('Exempt Line 7', $this->id)
 				),
 				'bigtext-exempt-8'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Exempt Line 8', 'pagelines')
+					'inputlabel'	=> __('Exempt Line 8', $this->id)
 				),
 				'bigtext-exempt-9'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Exempt Line 9', 'pagelines')
+					'inputlabel'	=> __('Exempt Line 9', $this->id)
 				),
-			  )
-			);
+			)
+		);
 
-		/*
-$options['bigtext-options-controller'] = array(
-			'title'					=> __( 'BigText Options Controller', 'pagelines' ),
-			'shortexp'				=> __( 'Control which BigText options are displayed.', 'pagelines' ),
-			'exp'					=> __( 'To show the new options:<br/>1) Check the box<br/>2) Save<br/>3) Refresh', 'pagelines' ),
+
+		$options['bigtext-options-controller'] = array(
+			'title'					=> __( 'BigText Options Controller', $this->id ),
+			'shortexp'				=> __( 'Control which BigText options are displayed.', $this->id ),
+			'exp'					=> __( 'To show the new options:<br/>1) Check the box<br/>2) Save<br/>3) Refresh', $this->id ),
 			'type' => 'check_multi',
 			'selectvalues'=> array(
 				'bigtext-options-line-by-line' => array(
-					'inputlabel' 	=> __('Show Line-by-Line Styling?<br/>(e.g. font picker, alignment, small-caps, colors, etc.)', 'pagelines')
+					'inputlabel' 	=> __('Show Line-by-Line Styling?<br/>(e.g. font picker, alignment, small-caps, colors, etc.)', $this->id)
 				)
 			)
 		);
 
-	if(ploption('bigtext-options-line-by-line') == 'on')
-*/ {
+		$line_by_line = !ploption('bigtext-options-line-by-line', $oset) ? true : false;
+
 		$options['bigtext-0'] = array(
 			'type'		=> 'multi_option',
-			'title'		=> __('BigText Line 0', 'pagelines'),
-			'shortexp'	=> __('These line-by-line settings are optional.', 'pagelines'),
+			'title'		=> __('BigText Line 0', $this->id),
+			'shortexp'	=> __('These line-by-line settings are optional.', $this->id),
+			'disabled' => $line_by_line,
 			'selectvalues'	=> array(
 				'bigtext-font-0'	=> array(
 					'type'			=> 'fonts',
-					'inputlabel'	=> __('Line 0 Font', 'pagelines')
+					'inputlabel'	=> __('Line 0 Font', $this->id)
 				),
 				'bigtext-text-align-0'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 0 Text-Align', 'pagelines'),
+					'inputlabel'	=> __('Line 0 Text-Align', $this->id),
 					'selectvalues' => array(
-						'center'	=> array('name' => __('Center', 'pagelines') ),
-						'left'		=> array('name' => __('Left', 'pagelines') ),
-						'right'		=> array('name' => __('Right', 'pagelines') ),
-						'justify'	=> array('name' => __('Justify', 'pagelines') )
+						'center'	=> array('name' => __('Center', $this->id) ),
+						'left'		=> array('name' => __('Left', $this->id) ),
+						'right'		=> array('name' => __('Right', $this->id) ),
+						'justify'	=> array('name' => __('Justify', $this->id) )
 					)
 				),
 				'bigtext-text-decoration-0'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 0 Text-Decoration', 'pagelines'),
+					'inputlabel'	=> __('Line 0 Text-Decoration', $this->id),
 					'selectvalues' => array(
-						'none'	=> array('name' => __('None', 'pagelines') ),
-						'underline'	=> array('name' => __('Underline', 'pagelines') ),
-						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
-						'overline'		=> array('name' => __('Overline', 'pagelines') )
+						'none'	=> array('name' => __('None', $this->id) ),
+						'underline'	=> array('name' => __('Underline', $this->id) ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', $this->id) ),
+						'overline'		=> array('name' => __('Overline', $this->id) )
 					)
 				),
 				'bigtext-line-height-0'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> __('Line 0 Line-Height', 'pagelines')
+					'inputlabel'	=> __('Line 0 Line-Height', $this->id)
 				),
 				'bigtext-small-caps-0'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Line 0 in Small-Caps<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Line 0 in Small-Caps<br/><br/>', $this->id)
 				),
 /*
 				'bigtext-transparent-text-0'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Line 0 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Line 0 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', $this->id)
 				),
 */
 				'bigtext-color-0'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Line 0 Text Color', 'pagelines')
+					'inputlabel' 	=> __('Line 0 Text Color', $this->id)
 				),
 				'bigtext-color-0-stroke'	=> array(
 					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Line 0 Stroke<br/>(a 1px Outline)', 'pagelines')
+					'inputlabel' 	=> __('Line 0 Stroke<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-0-shadow'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Line 0<br/>Shadow Color', 'pagelines')
+					'inputlabel'	=> __('Line 0<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-0-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Line 0 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
+					'inputlabel' 	=> __('Line 0 Shadow Length (default: <em>2px</em> if Shadow Color is set)', $this->id)
 				)
 			  )
 			);
 
 		$options['bigtext-1'] = array(
 			'type'		=> 'multi_option',
-			'title'		=> __('BigText Line 1', 'pagelines'),
-			'shortexp'	=> __('These line-by-line settings are optional.', 'pagelines'),
+			'title'		=> __('BigText Line 1', $this->id),
+			'shortexp'	=> __('These line-by-line settings are optional.', $this->id),
+			'disabled' => $line_by_line,
 			'selectvalues'	=> array(
 				'bigtext-font-1'	=> array(
 					'type'			=> 'fonts',
-					'inputlabel'	=> __('Line 1 Font', 'pagelines')
+					'inputlabel'	=> __('Line 1 Font', $this->id)
 				),
 				'bigtext-text-align-1'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 1 Text-Align', 'pagelines'),
+					'inputlabel'	=> __('Line 1 Text-Align', $this->id),
 					'selectvalues' => array(
-						'center'	=> array('name' => __('Center', 'pagelines') ),
-						'left'		=> array('name' => __('Left', 'pagelines') ),
-						'right'		=> array('name' => __('Right', 'pagelines') ),
-						'justify'	=> array('name' => __('Justify', 'pagelines') )
+						'center'	=> array('name' => __('Center', $this->id) ),
+						'left'		=> array('name' => __('Left', $this->id) ),
+						'right'		=> array('name' => __('Right', $this->id) ),
+						'justify'	=> array('name' => __('Justify', $this->id) )
 					)
 				),
 				'bigtext-text-decoration-1'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 1 Text-Decoration', 'pagelines'),
+					'inputlabel'	=> __('Line 1 Text-Decoration', $this->id),
 					'selectvalues' => array(
-						'none'	=> array('name' => __('None', 'pagelines') ),
-						'underline'	=> array('name' => __('Underline', 'pagelines') ),
-						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
-						'overline'		=> array('name' => __('Overline', 'pagelines') )
+						'none'	=> array('name' => __('None', $this->id) ),
+						'underline'	=> array('name' => __('Underline', $this->id) ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', $this->id) ),
+						'overline'		=> array('name' => __('Overline', $this->id) )
 					)
 				),
 				'bigtext-line-height-1'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> __('Line 1 Line-Height', 'pagelines')
+					'inputlabel'	=> __('Line 1 Line-Height', $this->id)
 				),
 				'bigtext-small-caps-1'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Line 1 in Small-Caps<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Line 1 in Small-Caps<br/><br/>', $this->id)
 				),
 /*
 				'bigtext-transparent-text-1'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Line 1 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Line 1 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', $this->id)
 				),
 */
 				'bigtext-color-1'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Line 1 Text Color', 'pagelines')
+					'inputlabel' 	=> __('Line 1 Text Color', $this->id)
 				),
 				'bigtext-color-1-stroke'	=> array(
 					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Line 1 Stroke<br/>(a 1px Outline)', 'pagelines')
+					'inputlabel' 	=> __('Line 1 Stroke<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-1-shadow'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Line 1<br/>Shadow Color', 'pagelines')
+					'inputlabel'	=> __('Line 1<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-1-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Line 1 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
+					'inputlabel' 	=> __('Line 1 Shadow Length (default: <em>2px</em> if Shadow Color is set)', $this->id)
 				)
 			  )
 			);
 
 		$options['bigtext-2'] = array(
 			'type'		=> 'multi_option',
-			'title'		=> __('BigText Line 2', 'pagelines'),
-			'shortexp'	=> __('These line-by-line settings are optional.', 'pagelines'),
+			'title'		=> __('BigText Line 2', $this->id),
+			'shortexp'	=> __('These line-by-line settings are optional.', $this->id),
+			'disabled' => $line_by_line,
 			'selectvalues'	=> array(
 				'bigtext-font-2'	=> array(
 					'type'			=> 'fonts',
-					'inputlabel'	=> __('Line 2 Font', 'pagelines')
+					'inputlabel'	=> __('Line 2 Font', $this->id)
 				),
 				'bigtext-text-align-2'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 2 Text-Align', 'pagelines'),
+					'inputlabel'	=> __('Line 2 Text-Align', $this->id),
 					'selectvalues' => array(
-						'center'	=> array('name' => __('Center', 'pagelines') ),
-						'left'		=> array('name' => __('Left', 'pagelines') ),
-						'right'		=> array('name' => __('Right', 'pagelines') ),
-						'justify'	=> array('name' => __('Justify', 'pagelines') )
+						'center'	=> array('name' => __('Center', $this->id) ),
+						'left'		=> array('name' => __('Left', $this->id) ),
+						'right'		=> array('name' => __('Right', $this->id) ),
+						'justify'	=> array('name' => __('Justify', $this->id) )
 					)
 				),
 				'bigtext-text-decoration-2'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 2 Text-Decoration', 'pagelines'),
+					'inputlabel'	=> __('Line 2 Text-Decoration', $this->id),
 					'selectvalues' => array(
-						'none'	=> array('name' => __('None', 'pagelines') ),
-						'underline'	=> array('name' => __('Underline', 'pagelines') ),
-						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
-						'overline'		=> array('name' => __('Overline', 'pagelines') )
+						'none'	=> array('name' => __('None', $this->id) ),
+						'underline'	=> array('name' => __('Underline', $this->id) ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', $this->id) ),
+						'overline'		=> array('name' => __('Overline', $this->id) )
 					)
 				),
 				'bigtext-line-height-2'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> __('Line 2 Line-Height', 'pagelines')
+					'inputlabel'	=> __('Line 2 Line-Height', $this->id)
 				),
 				'bigtext-small-caps-2'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Line 2 in Small-Caps<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Line 2 in Small-Caps<br/><br/>', $this->id)
 				),
 /*
 				'bigtext-transparent-text-2'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Line 2 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Line 2 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', $this->id)
 				),
 */
 				'bigtext-color-2'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Line 2 Text Color', 'pagelines')
+					'inputlabel' 	=> __('Line 2 Text Color', $this->id)
 				),
 				'bigtext-color-2-stroke'	=> array(
 					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Line 2 Stroke<br/>(a 1px Outline)', 'pagelines')
+					'inputlabel' 	=> __('Line 2 Stroke<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-2-shadow'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Line 2<br/>Shadow Color', 'pagelines')
+					'inputlabel'	=> __('Line 2<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-2-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Line 2 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
+					'inputlabel' 	=> __('Line 2 Shadow Length (default: <em>2px</em> if Shadow Color is set)', $this->id)
 				)
 			  )
 			);
 
 		$options['bigtext-3'] = array(
 			'type'		=> 'multi_option',
-			'title'		=> __('BigText Line 3', 'pagelines'),
-			'shortexp'	=> __('These line-by-line settings are optional.', 'pagelines'),
+			'title'		=> __('BigText Line 3', $this->id),
+			'shortexp'	=> __('These line-by-line settings are optional.', $this->id),
+			'disabled' => $line_by_line,
 			'selectvalues'	=> array(
 				'bigtext-font-3'	=> array(
 					'type'			=> 'fonts',
-					'inputlabel'	=> __('Line 3 Font', 'pagelines')
+					'inputlabel'	=> __('Line 3 Font', $this->id)
 				),
 				'bigtext-text-align-3'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 3 Text-Align', 'pagelines'),
+					'inputlabel'	=> __('Line 3 Text-Align', $this->id),
 					'selectvalues' => array(
-						'center'	=> array('name' => __('Center', 'pagelines') ),
-						'left'		=> array('name' => __('Left', 'pagelines') ),
-						'right'		=> array('name' => __('Right', 'pagelines') ),
-						'justify'	=> array('name' => __('Justify', 'pagelines') )
+						'center'	=> array('name' => __('Center', $this->id) ),
+						'left'		=> array('name' => __('Left', $this->id) ),
+						'right'		=> array('name' => __('Right', $this->id) ),
+						'justify'	=> array('name' => __('Justify', $this->id) )
 					)
 				),
 				'bigtext-text-decoration-3'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 3 Text-Decoration', 'pagelines'),
+					'inputlabel'	=> __('Line 3 Text-Decoration', $this->id),
 					'selectvalues' => array(
-						'none'	=> array('name' => __('None', 'pagelines') ),
-						'underline'	=> array('name' => __('Underline', 'pagelines') ),
-						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
-						'overline'		=> array('name' => __('Overline', 'pagelines') )
+						'none'	=> array('name' => __('None', $this->id) ),
+						'underline'	=> array('name' => __('Underline', $this->id) ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', $this->id) ),
+						'overline'		=> array('name' => __('Overline', $this->id) )
 					)
 				),
 				'bigtext-line-height-3'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> __('Line 3 Line-Height', 'pagelines')
+					'inputlabel'	=> __('Line 3 Line-Height', $this->id)
 				),
 				'bigtext-small-caps-3'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Line 3 in Small-Caps<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Line 3 in Small-Caps<br/><br/>', $this->id)
 				),
 /*
 				'bigtext-transparent-text-3'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Line 3 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Line 3 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', $this->id)
 				),
 */
 				'bigtext-color-3'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Line 3 Text Color', 'pagelines')
+					'inputlabel' 	=> __('Line 3 Text Color', $this->id)
 				),
 				'bigtext-color-3-stroke'	=> array(
 					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Line 3 Stroke<br/>(a 1px Outline)', 'pagelines')
+					'inputlabel' 	=> __('Line 3 Stroke<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-3-shadow'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Line 3<br/>Shadow Color', 'pagelines')
+					'inputlabel'	=> __('Line 3<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-3-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Line 3 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
+					'inputlabel' 	=> __('Line 3 Shadow Length (default: <em>2px</em> if Shadow Color is set)', $this->id)
 				)
 			  )
 			);
 
 		$options['bigtext-4'] = array(
 			'type'		=> 'multi_option',
-			'title'		=> __('BigText Line 4', 'pagelines'),
-			'shortexp'	=> __('These line-by-line settings are optional.', 'pagelines'),
+			'title'		=> __('BigText Line 4', $this->id),
+			'shortexp'	=> __('These line-by-line settings are optional.', $this->id),
+			'disabled' => $line_by_line,
 			'selectvalues'	=> array(
 				'bigtext-font-4'	=> array(
 					'type'			=> 'fonts',
-					'inputlabel'	=> __('Line 4 Font', 'pagelines')
+					'inputlabel'	=> __('Line 4 Font', $this->id)
 				),
 				'bigtext-text-align-4'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 4 Text-Align', 'pagelines'),
+					'inputlabel'	=> __('Line 4 Text-Align', $this->id),
 					'selectvalues' => array(
-						'center'	=> array('name' => __('Center', 'pagelines') ),
-						'left'		=> array('name' => __('Left', 'pagelines') ),
-						'right'		=> array('name' => __('Right', 'pagelines') ),
-						'justify'	=> array('name' => __('Justify', 'pagelines') )
+						'center'	=> array('name' => __('Center', $this->id) ),
+						'left'		=> array('name' => __('Left', $this->id) ),
+						'right'		=> array('name' => __('Right', $this->id) ),
+						'justify'	=> array('name' => __('Justify', $this->id) )
 					)
 				),
 				'bigtext-text-decoration-4'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 4 Text-Decoration', 'pagelines'),
+					'inputlabel'	=> __('Line 4 Text-Decoration', $this->id),
 					'selectvalues' => array(
-						'none'	=> array('name' => __('None', 'pagelines') ),
-						'underline'	=> array('name' => __('Underline', 'pagelines') ),
-						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
-						'overline'		=> array('name' => __('Overline', 'pagelines') )
+						'none'	=> array('name' => __('None', $this->id) ),
+						'underline'	=> array('name' => __('Underline', $this->id) ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', $this->id) ),
+						'overline'		=> array('name' => __('Overline', $this->id) )
 					)
 				),
 				'bigtext-line-height-4'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> __('Line 4 Line-Height', 'pagelines')
+					'inputlabel'	=> __('Line 4 Line-Height', $this->id)
 				),
 				'bigtext-small-caps-4'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Line 4 in Small-Caps<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Line 4 in Small-Caps<br/><br/>', $this->id)
 				),
 /*
 				'bigtext-transparent-text-4'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Line 4 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Line 4 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', $this->id)
 				),
 */
 				'bigtext-color-4'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Line 4 Text Color', 'pagelines')
+					'inputlabel' 	=> __('Line 4 Text Color', $this->id)
 				),
 				'bigtext-color-4-stroke'	=> array(
 					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Line 4 Stroke<br/>(a 1px Outline)', 'pagelines')
+					'inputlabel' 	=> __('Line 4 Stroke<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-4-shadow'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Line 4<br/>Shadow Color', 'pagelines')
+					'inputlabel'	=> __('Line 4<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-4-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Line 4 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
+					'inputlabel' 	=> __('Line 4 Shadow Length (default: <em>2px</em> if Shadow Color is set)', $this->id)
 				)
 			  )
 			);
 
 		$options['bigtext-5'] = array(
 			'type'		=> 'multi_option',
-			'title'		=> __('BigText Line 5', 'pagelines'),
-			'shortexp'	=> __('These line-by-line settings are optional.', 'pagelines'),
+			'title'		=> __('BigText Line 5', $this->id),
+			'shortexp'	=> __('These line-by-line settings are optional.', $this->id),
+			'disabled' => $line_by_line,
 			'selectvalues'	=> array(
 				'bigtext-font-5'	=> array(
 					'type'			=> 'fonts',
-					'inputlabel'	=> __('Line 5 Font', 'pagelines')
+					'inputlabel'	=> __('Line 5 Font', $this->id)
 				),
 				'bigtext-text-align-5'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 5 Text-Align', 'pagelines'),
+					'inputlabel'	=> __('Line 5 Text-Align', $this->id),
 					'selectvalues' => array(
-						'center'	=> array('name' => __('Center', 'pagelines') ),
-						'left'		=> array('name' => __('Left', 'pagelines') ),
-						'right'		=> array('name' => __('Right', 'pagelines') ),
-						'justify'	=> array('name' => __('Justify', 'pagelines') )
+						'center'	=> array('name' => __('Center', $this->id) ),
+						'left'		=> array('name' => __('Left', $this->id) ),
+						'right'		=> array('name' => __('Right', $this->id) ),
+						'justify'	=> array('name' => __('Justify', $this->id) )
 					)
 				),
 				'bigtext-text-decoration-5'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 5 Text-Decoration', 'pagelines'),
+					'inputlabel'	=> __('Line 5 Text-Decoration', $this->id),
 					'selectvalues' => array(
-						'none'	=> array('name' => __('None', 'pagelines') ),
-						'underline'	=> array('name' => __('Underline', 'pagelines') ),
-						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
-						'overline'		=> array('name' => __('Overline', 'pagelines') )
+						'none'	=> array('name' => __('None', $this->id) ),
+						'underline'	=> array('name' => __('Underline', $this->id) ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', $this->id) ),
+						'overline'		=> array('name' => __('Overline', $this->id) )
 					)
 				),
 				'bigtext-line-height-5'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> __('Line 5 Line-Height', 'pagelines')
+					'inputlabel'	=> __('Line 5 Line-Height', $this->id)
 				),
 				'bigtext-small-caps-5'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Line 5 in Small-Caps<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Line 5 in Small-Caps<br/><br/>', $this->id)
 				),
 /*
 				'bigtext-transparent-text-5'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Line 5 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Line 5 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', $this->id)
 				),
 */
 				'bigtext-color-5'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Line 5 Text Color', 'pagelines')
+					'inputlabel' 	=> __('Line 5 Text Color', $this->id)
 				),
 				'bigtext-color-5-stroke'	=> array(
 					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Line 5 Stroke<br/>(a 1px Outline)', 'pagelines')
+					'inputlabel' 	=> __('Line 5 Stroke<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-5-shadow'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Line 5<br/>Shadow Color', 'pagelines')
+					'inputlabel'	=> __('Line 5<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-5-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Line 5 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
+					'inputlabel' 	=> __('Line 5 Shadow Length (default: <em>2px</em> if Shadow Color is set)', $this->id)
 				)
 			  )
 			);
 
 		$options['bigtext-6'] = array(
 			'type'		=> 'multi_option',
-			'title'		=> __('BigText Line 6', 'pagelines'),
-			'shortexp'	=> __('These line-by-line settings are optional.', 'pagelines'),
+			'title'		=> __('BigText Line 6', $this->id),
+			'shortexp'	=> __('These line-by-line settings are optional.', $this->id),
+			'disabled' => $line_by_line,
 			'selectvalues'	=> array(
 				'bigtext-font-6'	=> array(
 					'type'			=> 'fonts',
-					'inputlabel'	=> __('Line 6 Font', 'pagelines')
+					'inputlabel'	=> __('Line 6 Font', $this->id)
 				),
 				'bigtext-text-align-6'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 6 Text-Align', 'pagelines'),
+					'inputlabel'	=> __('Line 6 Text-Align', $this->id),
 					'selectvalues' => array(
-						'center'	=> array('name' => __('Center', 'pagelines') ),
-						'left'		=> array('name' => __('Left', 'pagelines') ),
-						'right'		=> array('name' => __('Right', 'pagelines') ),
-						'justify'	=> array('name' => __('Justify', 'pagelines') )
+						'center'	=> array('name' => __('Center', $this->id) ),
+						'left'		=> array('name' => __('Left', $this->id) ),
+						'right'		=> array('name' => __('Right', $this->id) ),
+						'justify'	=> array('name' => __('Justify', $this->id) )
 					)
 				),
 				'bigtext-text-decoration-6'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 6 Text-Decoration', 'pagelines'),
+					'inputlabel'	=> __('Line 6 Text-Decoration', $this->id),
 					'selectvalues' => array(
-						'none'	=> array('name' => __('None', 'pagelines') ),
-						'underline'	=> array('name' => __('Underline', 'pagelines') ),
-						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
-						'overline'		=> array('name' => __('Overline', 'pagelines') )
+						'none'	=> array('name' => __('None', $this->id) ),
+						'underline'	=> array('name' => __('Underline', $this->id) ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', $this->id) ),
+						'overline'		=> array('name' => __('Overline', $this->id) )
 					)
 				),
 				'bigtext-line-height-6'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> __('Line 6 Line-Height', 'pagelines')
+					'inputlabel'	=> __('Line 6 Line-Height', $this->id)
 				),
 				'bigtext-small-caps-6'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Line 6 in Small-Caps<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Line 6 in Small-Caps<br/><br/>', $this->id)
 				),
 /*
 				'bigtext-transparent-text-6'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Line 6 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Line 6 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', $this->id)
 				),
 */
 				'bigtext-color-6'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Line 6 Text Color', 'pagelines')
+					'inputlabel' 	=> __('Line 6 Text Color', $this->id)
 				),
 				'bigtext-color-6-stroke'	=> array(
 					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Line 6 Stroke<br/>(a 1px Outline)', 'pagelines')
+					'inputlabel' 	=> __('Line 6 Stroke<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-6-shadow'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Line 6<br/>Shadow Color', 'pagelines')
+					'inputlabel'	=> __('Line 6<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-6-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Line 6 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
+					'inputlabel' 	=> __('Line 6 Shadow Length (default: <em>2px</em> if Shadow Color is set)', $this->id)
 				)
 			  )
 			);
 
 		$options['bigtext-7'] = array(
 			'type'		=> 'multi_option',
-			'title'		=> __('BigText Line 7', 'pagelines'),
-			'shortexp'	=> __('These line-by-line settings are optional.', 'pagelines'),
+			'title'		=> __('BigText Line 7', $this->id),
+			'shortexp'	=> __('These line-by-line settings are optional.', $this->id),
+			'disabled' => $line_by_line,
 			'selectvalues'	=> array(
 				'bigtext-font-7'	=> array(
 					'type'			=> 'fonts',
-					'inputlabel'	=> __('Line 7 Font', 'pagelines')
+					'inputlabel'	=> __('Line 7 Font', $this->id)
 				),
 				'bigtext-text-align-7'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 7 Text-Align', 'pagelines'),
+					'inputlabel'	=> __('Line 7 Text-Align', $this->id),
 					'selectvalues' => array(
-						'center'	=> array('name' => __('Center', 'pagelines') ),
-						'left'		=> array('name' => __('Left', 'pagelines') ),
-						'right'		=> array('name' => __('Right', 'pagelines') ),
-						'justify'	=> array('name' => __('Justify', 'pagelines') )
+						'center'	=> array('name' => __('Center', $this->id) ),
+						'left'		=> array('name' => __('Left', $this->id) ),
+						'right'		=> array('name' => __('Right', $this->id) ),
+						'justify'	=> array('name' => __('Justify', $this->id) )
 					)
 				),
 				'bigtext-text-decoration-7'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 7 Text-Decoration', 'pagelines'),
+					'inputlabel'	=> __('Line 7 Text-Decoration', $this->id),
 					'selectvalues' => array(
-						'none'	=> array('name' => __('None', 'pagelines') ),
-						'underline'	=> array('name' => __('Underline', 'pagelines') ),
-						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
-						'overline'		=> array('name' => __('Overline', 'pagelines') )
+						'none'	=> array('name' => __('None', $this->id) ),
+						'underline'	=> array('name' => __('Underline', $this->id) ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', $this->id) ),
+						'overline'		=> array('name' => __('Overline', $this->id) )
 					)
 				),
 				'bigtext-line-height-7'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> __('Line 7 Line-Height', 'pagelines')
+					'inputlabel'	=> __('Line 7 Line-Height', $this->id)
 				),
 				'bigtext-small-caps-7'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Line 7 in Small-Caps<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Line 7 in Small-Caps<br/><br/>', $this->id)
 				),
 /*
 				'bigtext-transparent-text-7'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Line 7 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Line 7 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', $this->id)
 				),
 */
 				'bigtext-color-7'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Line 7 Text Color', 'pagelines')
+					'inputlabel' 	=> __('Line 7 Text Color', $this->id)
 				),
 				'bigtext-color-7-stroke'	=> array(
 					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Line 7 Stroke<br/>(a 1px Outline)', 'pagelines')
+					'inputlabel' 	=> __('Line 7 Stroke<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-7-shadow'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Line 7<br/>Shadow Color', 'pagelines')
+					'inputlabel'	=> __('Line 7<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-7-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Line 7 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
+					'inputlabel' 	=> __('Line 7 Shadow Length (default: <em>2px</em> if Shadow Color is set)', $this->id)
 				)
 			  )
 			);
 
 		$options['bigtext-8'] = array(
 			'type'		=> 'multi_option',
-			'title'		=> __('BigText Line 8', 'pagelines'),
-			'shortexp'	=> __('These line-by-line settings are optional.', 'pagelines'),
+			'title'		=> __('BigText Line 8', $this->id),
+			'shortexp'	=> __('These line-by-line settings are optional.', $this->id),
+			'disabled' => $line_by_line,
 			'selectvalues'	=> array(
 				'bigtext-font-8'	=> array(
 					'type'			=> 'fonts',
-					'inputlabel'	=> __('Line 8 Font', 'pagelines')
+					'inputlabel'	=> __('Line 8 Font', $this->id)
 				),
 				'bigtext-text-align-8'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 8 Text-Align', 'pagelines'),
+					'inputlabel'	=> __('Line 8 Text-Align', $this->id),
 					'selectvalues' => array(
-						'center'	=> array('name' => __('Center', 'pagelines') ),
-						'left'		=> array('name' => __('Left', 'pagelines') ),
-						'right'		=> array('name' => __('Right', 'pagelines') ),
-						'justify'	=> array('name' => __('Justify', 'pagelines') )
+						'center'	=> array('name' => __('Center', $this->id) ),
+						'left'		=> array('name' => __('Left', $this->id) ),
+						'right'		=> array('name' => __('Right', $this->id) ),
+						'justify'	=> array('name' => __('Justify', $this->id) )
 					)
 				),
 				'bigtext-text-decoration-8'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 8 Text-Decoration', 'pagelines'),
+					'inputlabel'	=> __('Line 8 Text-Decoration', $this->id),
 					'selectvalues' => array(
-						'none'	=> array('name' => __('None', 'pagelines') ),
-						'underline'	=> array('name' => __('Underline', 'pagelines') ),
-						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
-						'overline'		=> array('name' => __('Overline', 'pagelines') )
+						'none'	=> array('name' => __('None', $this->id) ),
+						'underline'	=> array('name' => __('Underline', $this->id) ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', $this->id) ),
+						'overline'		=> array('name' => __('Overline', $this->id) )
 					)
 				),
 				'bigtext-line-height-8'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> __('Line 8 Line-Height', 'pagelines')
+					'inputlabel'	=> __('Line 8 Line-Height', $this->id)
 				),
 				'bigtext-small-caps-8'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Line 8 in Small-Caps<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Line 8 in Small-Caps<br/><br/>', $this->id)
 				),
 /*
 				'bigtext-transparent-text-8'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Line 8 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Line 8 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', $this->id)
 				),
 */
 				'bigtext-color-8'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Line 8 Text Color', 'pagelines')
+					'inputlabel' 	=> __('Line 8 Text Color', $this->id)
 				),
 				'bigtext-color-8-stroke'	=> array(
 					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Line 8 Stroke<br/>(a 1px Outline)', 'pagelines')
+					'inputlabel' 	=> __('Line 8 Stroke<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-8-shadow'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Line 8<br/>Shadow Color', 'pagelines')
+					'inputlabel'	=> __('Line 8<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-8-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Line 8 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
+					'inputlabel' 	=> __('Line 8 Shadow Length (default: <em>2px</em> if Shadow Color is set)', $this->id)
 				)
 			  )
 			);
 
 		$options['bigtext-9'] = array(
 			'type'		=> 'multi_option',
-			'title'		=> __('BigText Line 9', 'pagelines'),
-			'shortexp'	=> __('These line-by-line settings are optional.', 'pagelines'),
+			'title'		=> __('BigText Line 9', $this->id),
+			'shortexp'	=> __('These line-by-line settings are optional.', $this->id),
+			'disabled' => $line_by_line,
 			'selectvalues'	=> array(
 				'bigtext-font-9'	=> array(
 					'type'			=> 'fonts',
-					'inputlabel'	=> __('Line 9 Font', 'pagelines')
+					'inputlabel'	=> __('Line 9 Font', $this->id)
 				),
 				'bigtext-text-align-9'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 9 Text-Align', 'pagelines'),
+					'inputlabel'	=> __('Line 9 Text-Align', $this->id),
 					'selectvalues' => array(
-						'center'	=> array('name' => __('Center', 'pagelines') ),
-						'left'		=> array('name' => __('Left', 'pagelines') ),
-						'right'		=> array('name' => __('Right', 'pagelines') ),
-						'justify'	=> array('name' => __('Justify', 'pagelines') )
+						'center'	=> array('name' => __('Center', $this->id) ),
+						'left'		=> array('name' => __('Left', $this->id) ),
+						'right'		=> array('name' => __('Right', $this->id) ),
+						'justify'	=> array('name' => __('Justify', $this->id) )
 					)
 				),
 				'bigtext-text-decoration-9'=> array(
 					'type' 			=> 'select',
-					'inputlabel'	=> __('Line 9 Text-Decoration', 'pagelines'),
+					'inputlabel'	=> __('Line 9 Text-Decoration', $this->id),
 					'selectvalues' => array(
-						'none'	=> array('name' => __('None', 'pagelines') ),
-						'underline'	=> array('name' => __('Underline', 'pagelines') ),
-						'line-through'		=> array('name' => __('Line-Through / Strikethrough', 'pagelines') ),
-						'overline'		=> array('name' => __('Overline', 'pagelines') )
+						'none'	=> array('name' => __('None', $this->id) ),
+						'underline'	=> array('name' => __('Underline', $this->id) ),
+						'line-through'		=> array('name' => __('Line-Through / Strikethrough', $this->id) ),
+						'overline'		=> array('name' => __('Overline', $this->id) )
 					)
 				),
 				'bigtext-line-height-9'	=> array(
 					'type'			=> 'text_small',
-					'inputlabel'	=> __('Line 9 Line-Height', 'pagelines')
+					'inputlabel'	=> __('Line 9 Line-Height', $this->id)
 				),
 				'bigtext-small-caps-9'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Line 9 in Small-Caps<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Line 9 in Small-Caps<br/><br/>', $this->id)
 				),
 /*
 				'bigtext-transparent-text-9'	=> array(
 					'type'			=> 'check',
-					'inputlabel'	=> __('Line 9 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', 'pagelines')
+					'inputlabel'	=> __('Line 9 Transparent Text. (Read warnings in Default Settings above.)<br/><br/>', $this->id)
 				),
 */
 				'bigtext-color-9'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel' 	=> __('Line 9 Text Color', 'pagelines')
+					'inputlabel' 	=> __('Line 9 Text Color', $this->id)
 				),
 				'bigtext-color-9-stroke'	=> array(
 					'type'			=> 'colorpicker',
-					'inputlabel' 	=> __('Line 9 Stroke<br/>(a 1px Outline)', 'pagelines')
+					'inputlabel' 	=> __('Line 9 Stroke<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-9-shadow'	=> array(
 					'type'		    => 'colorpicker',
-					'inputlabel'	=> __('Line 9<br/>Shadow Color', 'pagelines')
+					'inputlabel'	=> __('Line 9<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-9-shadow-length' 	=> array(
 					'type'			=> 'text_small',
-					'inputlabel' 	=> __('Line 9 Shadow Length (default: <em>2px</em> if Shadow Color is set)', 'pagelines')
+					'inputlabel' 	=> __('Line 9 Shadow Length (default: <em>2px</em> if Shadow Color is set)', $this->id)
 				)
 			  )
 			);
-		}
 
 
 

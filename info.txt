@@ -14,6 +14,8 @@ Wish FitText could put more than one word on a line? Come enjoy the benefits of 
 See <a href="http://www.pagelinestheme.com/bigtext-section?utm_source=pagelines&utm_medium=section&utm_content=plstoredescription&utm_campaign=bigtext_section" target="_blank">Section's Official Page</a> for more details.
 
 == Changelog ==
+= 1.1.20130701 =
+* Hides individual line styling options unless you check the box to show. No options are removed, just the post editor screen cleaned up a bit.
 = 1.1.20130401 =
 * Added more options.
 * Added more line-by-line options.
