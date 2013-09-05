@@ -8,4 +8,7 @@ Description: A <a href="https://github.com/zachleat/BigText" target="_blank">Big
 Demo: http://www.pagelinestheme.com/bigtext-section?utm_source=pagelines&utm_medium=section&utm_content=demolink&utm_campaign=bigtext_section
 Class Name: BigTextSection
 Version: 2.20130829
+PageLines: true
+v3: true
+Filter:
 */

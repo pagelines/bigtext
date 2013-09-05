@@ -9,8 +9,9 @@ Demo: http://www.pagelinestheme.com/bigtext-section?utm_source=pagelines&utm_med
 Class Name: BigTextSection
 Version: 2.20130829
 Cloning: true
-V3: true
-Filter:misc
+PageLines: true
+v3: true
+Filter:
 */
 
 
