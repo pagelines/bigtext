@@ -1,47 +1,40 @@
 <?php
 /*
 Section: BigText
-Author: TourKick
+Author: Clifford Paulick
 Author URI: http://tourkick.com/?utm_source=pagelines&utm_medium=section&utm_content=authoruri&utm_campaign=bigtext_section
 Plugin URI: http://www.pagelinestheme.com/bigtext-section?utm_source=pagelines&utm_medium=section&utm_content=pluginuri&utm_campaign=bigtext_section
+Version: 1.20130701
 Description: A <a href="https://github.com/zachleat/BigText" target="_blank">BigText</a> section that resizes text to fit one or more words on a line that fits the container, and is responsive which means it scales with different size browsers. Like <a href="www.pagelines.com/store/sections/fittext-section/" target="_blank">FitText</a> but more customizable!
 Demo: http://www.pagelinestheme.com/bigtext-section?utm_source=pagelines&utm_medium=section&utm_content=demolink&utm_campaign=bigtext_section
 Class Name: BigTextSection
-Version: 2.20130829
+Workswith: templates, main, sidebar1, sidebar2, sidebar_wrap, header, footer, morefoot
 Cloning: true
-PageLines: true
-v3: true
-Filter:
 */
 
 
 class BigTextSection extends PageLinesSection {
 
-	function section_scripts(){
-		// BigText version 1.2, MIT License, from https://github.com/zachleat/BigText#releases
-		wp_enqueue_script('bigtext', $this->base_url.'/bigtext.js', array('jquery'), '1.2', true);
+	function section_styles(){
+		// BigText version 1.2, from https://github.com/zachleat/BigText#releases
+		wp_enqueue_script('bigtext', $this->base_url.'/bigtext.js', array( 'jquery' ), '1.2', true);
 
 	}
 
 
-	function section_head(){
-		if(function_exists('pl_has_editor') && pl_has_editor()){
-			$clone_id = $this->get_the_id();
-		} else {
-	        global $pagelines_ID;
-	        $oset = array('post_id' => $pagelines_ID);
-			$clone_id = $this->oset['clone_id'];
-		}
+	function section_head( $clone_id ){
 
+
+		$prefix = ($clone_id != '') ? '.clone_'.$clone_id : ''; //cloning = false because I noticed issues during testing, but it would fix itself once you click to Inspect Element
 
 		// pull in the options, since they're from another function
-		global $pagelines_ID;
+        global $pagelines_ID;
         $oset = array('post_id' => $pagelines_ID);
 
 
-		// commented out since the .js sets it to 528 already //$maxfontsize = $this->opt('bigtext-maxfontsize') ? $this->opt('bigtext-maxfontsize') : '528';
-		$maxfontsize = $this->opt('bigtext-maxfontsize');
-		$minfontsize = $this->opt('bigtext-minfontsize');
+		// commented out since the .js sets it to 528 already //$maxfontsize = ploption('bigtext-maxfontsize', $this->oset) ? ploption('bigtext-maxfontsize', $this->oset) : '528';
+		$maxfontsize = ploption('bigtext-maxfontsize', $this->oset);
+		$minfontsize = ploption('bigtext-minfontsize', $this->oset);
 
 		// allow only numbers
 		$maxfontsize = preg_replace("/[^0-9]/","",$maxfontsize);
@@ -52,7 +45,7 @@ class BigTextSection extends PageLinesSection {
 		/*<![CDATA[*/
 			jQuery(document).ready(function(){
 
-				jQuery("#bigtext-<?php echo $clone_id ?>").bigtext({
+				jQuery("#bigtext-<?php echo$clone_id ?>").bigtext({
 					<?php
 					// FYI: https://github.com/zachleat/BigText#change-the-default-min-starting-font-size
 
@@ -73,17 +66,17 @@ class BigTextSection extends PageLinesSection {
 
 		<?php
 
-		echo load_custom_font( $this->opt('bigtext-font'), ' #bigtext-'. $clone_id );
-		echo load_custom_font( $this->opt('bigtext-font-0'), "#bigtext-$clone_id .btline0" );
-		echo load_custom_font( $this->opt('bigtext-font-1'), "#bigtext-$clone_id .btline1" );
-		echo load_custom_font( $this->opt('bigtext-font-2'), "#bigtext-$clone_id .btline2" );
-		echo load_custom_font( $this->opt('bigtext-font-3'), "#bigtext-$clone_id .btline3" );
-		echo load_custom_font( $this->opt('bigtext-font-4'), "#bigtext-$clone_id .btline4" );
-		echo load_custom_font( $this->opt('bigtext-font-5'), "#bigtext-$clone_id .btline5" );
-		echo load_custom_font( $this->opt('bigtext-font-6'), "#bigtext-$clone_id .btline6" );
-		echo load_custom_font( $this->opt('bigtext-font-7'), "#bigtext-$clone_id .btline7" );
-		echo load_custom_font( $this->opt('bigtext-font-8'), "#bigtext-$clone_id .btline8" );
-		echo load_custom_font( $this->opt('bigtext-font-9'), "#bigtext-$clone_id .btline9" );
+		echo load_custom_font( ploption('bigtext-font', $this->oset), ' #bigtext-'. $clone_id );
+		echo load_custom_font( ploption('bigtext-font-0', $this->oset), "#bigtext-$clone_id .btline0" );
+		echo load_custom_font( ploption('bigtext-font-1', $this->oset), "#bigtext-$clone_id .btline1" );
+		echo load_custom_font( ploption('bigtext-font-2', $this->oset), "#bigtext-$clone_id .btline2" );
+		echo load_custom_font( ploption('bigtext-font-3', $this->oset), "#bigtext-$clone_id .btline3" );
+		echo load_custom_font( ploption('bigtext-font-4', $this->oset), "#bigtext-$clone_id .btline4" );
+		echo load_custom_font( ploption('bigtext-font-5', $this->oset), "#bigtext-$clone_id .btline5" );
+		echo load_custom_font( ploption('bigtext-font-6', $this->oset), "#bigtext-$clone_id .btline6" );
+		echo load_custom_font( ploption('bigtext-font-7', $this->oset), "#bigtext-$clone_id .btline7" );
+		echo load_custom_font( ploption('bigtext-font-8', $this->oset), "#bigtext-$clone_id .btline8" );
+		echo load_custom_font( ploption('bigtext-font-9', $this->oset), "#bigtext-$clone_id .btline9" );
 
 	}
 
@@ -108,8 +101,16 @@ class BigTextSection extends PageLinesSection {
 			'title'		=> __('BigText Container Settings.', $this->id),
 			'shortexp'	=> __('Control it.', $this->id),
 			'selectvalues'	=> array(
+				'bigtext-wrapper-class'	=> array(
+					'type'			=> 'text',
+					'inputlabel'	=> __('Add your own <strong>Wrapper/Container</strong> CSS class.<br/>&nbsp;&nbsp;&nbsp;Try <em>wellnotrounded</em>, <em>wellnotrounded-small</em>, or <em>wellnotrounded-large</em> to get a full-width Bootstrap Well without rounded corners.<br/>&nbsp;&nbsp;&nbsp;<strong>Separate multiple custom CSS classes with a space.</strong>', $this->id)
+				),
+				'bigtext-content-class'	=> array(
+					'type'			=> 'text',
+					'inputlabel'	=> __('Add your own <strong>Content Area</strong> CSS class.<br/>&nbsp;&nbsp;&nbsp;Try <em>well</em> to get a Bootstrap Well.<br/>Try using <em>rounded</em> to round the corners of the background color, if chosen.<br/>&nbsp;&nbsp;&nbsp;<strong>Separate multiple custom CSS classes with a space.</strong>', $this->id)
+				),
 				'bigtext-color-bg'	=> array(
-					'type'			=> 'color',
+					'type'			=> 'colorpicker',
 					'inputlabel' 	=> __('Background Color', $this->id)
 				),
 				'bigtext-image-bg'	=> array(
@@ -197,15 +198,15 @@ class BigTextSection extends PageLinesSection {
 					'inputlabel'	=> __('Change text color to transparent. Warnings:<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Only works on Webkit browsers. Ignored on other browsers.<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Try setting text color to white or black as a backup for non-Webkit.<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Does not work as expected with Stroke/Outline or Shadow Colors.<br/><br/>', $this->id)
 				),
 				'bigtext-color'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel' 	=> __('Default Text Color', $this->id)
 				),
 				'bigtext-color-stroke'	=> array(
-					'type'			=> 'color',
+					'type'			=> 'colorpicker',
 					'inputlabel' 	=> __('Stroke Color<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-shadow'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel'	=> __('Default<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-shadow-length' 	=> array(
@@ -324,7 +325,7 @@ class BigTextSection extends PageLinesSection {
 			)
 		);
 
-		$line_by_line = !$this->opt('bigtext-options-line-by-line') ? true : false;
+		$line_by_line = !ploption('bigtext-options-line-by-line', $oset) ? true : false;
 
 		$options['bigtext-0'] = array(
 			'type'		=> 'multi_option',
@@ -371,15 +372,15 @@ class BigTextSection extends PageLinesSection {
 				),
 */
 				'bigtext-color-0'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel' 	=> __('Line 0 Text Color', $this->id)
 				),
 				'bigtext-color-0-stroke'	=> array(
-					'type'			=> 'color',
+					'type'			=> 'colorpicker',
 					'inputlabel' 	=> __('Line 0 Stroke<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-0-shadow'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel'	=> __('Line 0<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-0-shadow-length' 	=> array(
@@ -434,15 +435,15 @@ class BigTextSection extends PageLinesSection {
 				),
 */
 				'bigtext-color-1'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel' 	=> __('Line 1 Text Color', $this->id)
 				),
 				'bigtext-color-1-stroke'	=> array(
-					'type'			=> 'color',
+					'type'			=> 'colorpicker',
 					'inputlabel' 	=> __('Line 1 Stroke<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-1-shadow'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel'	=> __('Line 1<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-1-shadow-length' 	=> array(
@@ -497,15 +498,15 @@ class BigTextSection extends PageLinesSection {
 				),
 */
 				'bigtext-color-2'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel' 	=> __('Line 2 Text Color', $this->id)
 				),
 				'bigtext-color-2-stroke'	=> array(
-					'type'			=> 'color',
+					'type'			=> 'colorpicker',
 					'inputlabel' 	=> __('Line 2 Stroke<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-2-shadow'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel'	=> __('Line 2<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-2-shadow-length' 	=> array(
@@ -560,15 +561,15 @@ class BigTextSection extends PageLinesSection {
 				),
 */
 				'bigtext-color-3'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel' 	=> __('Line 3 Text Color', $this->id)
 				),
 				'bigtext-color-3-stroke'	=> array(
-					'type'			=> 'color',
+					'type'			=> 'colorpicker',
 					'inputlabel' 	=> __('Line 3 Stroke<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-3-shadow'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel'	=> __('Line 3<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-3-shadow-length' 	=> array(
@@ -623,15 +624,15 @@ class BigTextSection extends PageLinesSection {
 				),
 */
 				'bigtext-color-4'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel' 	=> __('Line 4 Text Color', $this->id)
 				),
 				'bigtext-color-4-stroke'	=> array(
-					'type'			=> 'color',
+					'type'			=> 'colorpicker',
 					'inputlabel' 	=> __('Line 4 Stroke<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-4-shadow'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel'	=> __('Line 4<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-4-shadow-length' 	=> array(
@@ -686,15 +687,15 @@ class BigTextSection extends PageLinesSection {
 				),
 */
 				'bigtext-color-5'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel' 	=> __('Line 5 Text Color', $this->id)
 				),
 				'bigtext-color-5-stroke'	=> array(
-					'type'			=> 'color',
+					'type'			=> 'colorpicker',
 					'inputlabel' 	=> __('Line 5 Stroke<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-5-shadow'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel'	=> __('Line 5<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-5-shadow-length' 	=> array(
@@ -749,15 +750,15 @@ class BigTextSection extends PageLinesSection {
 				),
 */
 				'bigtext-color-6'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel' 	=> __('Line 6 Text Color', $this->id)
 				),
 				'bigtext-color-6-stroke'	=> array(
-					'type'			=> 'color',
+					'type'			=> 'colorpicker',
 					'inputlabel' 	=> __('Line 6 Stroke<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-6-shadow'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel'	=> __('Line 6<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-6-shadow-length' 	=> array(
@@ -812,15 +813,15 @@ class BigTextSection extends PageLinesSection {
 				),
 */
 				'bigtext-color-7'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel' 	=> __('Line 7 Text Color', $this->id)
 				),
 				'bigtext-color-7-stroke'	=> array(
-					'type'			=> 'color',
+					'type'			=> 'colorpicker',
 					'inputlabel' 	=> __('Line 7 Stroke<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-7-shadow'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel'	=> __('Line 7<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-7-shadow-length' 	=> array(
@@ -875,15 +876,15 @@ class BigTextSection extends PageLinesSection {
 				),
 */
 				'bigtext-color-8'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel' 	=> __('Line 8 Text Color', $this->id)
 				),
 				'bigtext-color-8-stroke'	=> array(
-					'type'			=> 'color',
+					'type'			=> 'colorpicker',
 					'inputlabel' 	=> __('Line 8 Stroke<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-8-shadow'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel'	=> __('Line 8<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-8-shadow-length' 	=> array(
@@ -938,15 +939,15 @@ class BigTextSection extends PageLinesSection {
 				),
 */
 				'bigtext-color-9'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel' 	=> __('Line 9 Text Color', $this->id)
 				),
 				'bigtext-color-9-stroke'	=> array(
-					'type'			=> 'color',
+					'type'			=> 'colorpicker',
 					'inputlabel' 	=> __('Line 9 Stroke<br/>(a 1px Outline)', $this->id)
 				),
 				'bigtext-color-9-shadow'	=> array(
-					'type'		    => 'color',
+					'type'		    => 'colorpicker',
 					'inputlabel'	=> __('Line 9<br/>Shadow Color', $this->id)
 				),
 				'bigtext-color-9-shadow-length' 	=> array(
@@ -971,302 +972,293 @@ class BigTextSection extends PageLinesSection {
 	}
 
 
-	function section_template(){
+	function section_template( $clone_id ){
 
-		if(function_exists('pl_has_editor') && pl_has_editor()){
-			$clone_id = $this->get_the_id();
-		} else {
-	        global $pagelines_ID;
-	        $oset = array('post_id' => $pagelines_ID);
-			$clone_id = $this->oset['clone_id'];
-		}
-
-
-		if(!$this->opt('bigtext-text-0')){
+		if(!ploption('bigtext-text-0', $this->oset)){
 			echo setup_section_notify($this, __('Get started with BigText by entering a value for "BigText Line 0 Text".'));
 			return;
 		}
 
 
 		// classes and controls
-		$wrapperclass = $this->opt('bigtext-wrapper-class');
+		$wrapperclass = ploption('bigtext-wrapper-class', $this->oset);
 			$wrapperclass = esc_html($wrapperclass);
 			$wrapperclass = str_replace(",", " ", $wrapperclass); // replace commas with spaces
 	$this->special_classes .= $wrapperclass;
 
-		$contentclass = $this->opt('bigtext-content-class');
+		$contentclass = ploption('bigtext-content-class', $this->oset);
 			$contentclass = esc_html($contentclass);
 			$contentclass = str_replace(",", " ", $contentclass); // replace commas with spaces
-		$width = $this->opt('bigtext-width') ? $this->opt('bigtext-width') : '100%';
+		$width = ploption('bigtext-width', $this->oset) ? ploption('bigtext-width', $this->oset) : '100%';
 			$width = esc_html($width);
-		$maxwidth = $this->opt('bigtext-max-width') ? $this->opt('bigtext-max-width') : '100%';
+		$maxwidth = ploption('bigtext-max-width', $this->oset) ? ploption('bigtext-max-width', $this->oset) : '100%';
 			$maxwidth = esc_html($maxwidth);
 
 
 		//background color
-		$colorbg = pl_hashify($this->opt('bigtext-color-bg'));
+		$colorbg = ploption('bigtext-color-bg', $this->oset);
 
 		//background image
-		$bgimage = $this->opt('bigtext-image-bg');
+		$bgimage = ploption('bigtext-image-bg', $this->oset);
 			if(!empty($bgimage)) {
-				$bgimagesize = $this->opt('bigtext-image-bg-size') ? $this->opt('bigtext-image-bg-size') : 'auto';
-				$bgimageposition = $this->opt('bigtext-image-bg-position') ? $this->opt('bigtext-image-bg-position') : 'center center';
+				$bgimagesize = ploption('bigtext-image-bg-size', $this->oset) ? ploption('bigtext-image-bg-size', $this->oset) : 'auto';
+				$bgimageposition = ploption('bigtext-image-bg-position', $this->oset) ? ploption('bigtext-image-bg-position', $this->oset) : 'center center';
 				$bgimagecode = "background: url(\"$bgimage\") no-repeat; background-position: $bgimageposition; -webkit-background-size: $bgimagesize; -moz-background-size: $bgimagesize; background-size: $bgimagesize;";
 			}
 
 
 		// text
 		// cannot do esc_html() to protect input on all these because then HTML will not work -- so do not insert your own malicious scripts ;-)
-		$text0 = $this->opt('bigtext-text-0');
+		$text0 = ploption('bigtext-text-0', $this->oset);
 			$text0 = do_shortcode($text0);
-		$text1 = $this->opt('bigtext-text-1');
+		$text1 = ploption('bigtext-text-1', $this->oset);
 			$text1 = do_shortcode($text1);
-		$text2 = $this->opt('bigtext-text-2');
+		$text2 = ploption('bigtext-text-2', $this->oset);
 			$text2 = do_shortcode($text2);
-		$text3 = $this->opt('bigtext-text-3');
+		$text3 = ploption('bigtext-text-3', $this->oset);
 			$text3 = do_shortcode($text3);
-		$text4 = $this->opt('bigtext-text-4');
+		$text4 = ploption('bigtext-text-4', $this->oset);
 			$text4 = do_shortcode($text4);
-		$text5 = $this->opt('bigtext-text-5');
+		$text5 = ploption('bigtext-text-5', $this->oset);
 			$text5 = do_shortcode($text5);
-		$text6 = $this->opt('bigtext-text-6');
+		$text6 = ploption('bigtext-text-6', $this->oset);
 			$text6 = do_shortcode($text6);
-		$text7 = $this->opt('bigtext-text-7');
+		$text7 = ploption('bigtext-text-7', $this->oset);
 			$text7 = do_shortcode($text7);
-		$text8 = $this->opt('bigtext-text-8');
+		$text8 = ploption('bigtext-text-8', $this->oset);
 			$text8 = do_shortcode($text8);
-		$text9 = $this->opt('bigtext-text-9');
+		$text9 = ploption('bigtext-text-9', $this->oset);
 			$text9 = do_shortcode($text9);
 
 
 		//same code applies to all of them
 		$smallcapscode = "font-variant:small-caps;";
 		//
-		$smallcaps = $this->opt('bigtext-small-caps');
-		$smallcaps0 = $this->opt('bigtext-small-caps-0');
-		$smallcaps1 = $this->opt('bigtext-small-caps-1');
-		$smallcaps2 = $this->opt('bigtext-small-caps-2');
-		$smallcaps3 = $this->opt('bigtext-small-caps-3');
-		$smallcaps4 = $this->opt('bigtext-small-caps-4');
-		$smallcaps5 = $this->opt('bigtext-small-caps-5');
-		$smallcaps6 = $this->opt('bigtext-small-caps-6');
-		$smallcaps7 = $this->opt('bigtext-small-caps-7');
-		$smallcaps8 = $this->opt('bigtext-small-caps-8');
-		$smallcaps9 = $this->opt('bigtext-small-caps-9');
+		$smallcaps = ploption('bigtext-small-caps', $this->oset);
+		$smallcaps0 = ploption('bigtext-small-caps-0', $this->oset);
+		$smallcaps1 = ploption('bigtext-small-caps-1', $this->oset);
+		$smallcaps2 = ploption('bigtext-small-caps-2', $this->oset);
+		$smallcaps3 = ploption('bigtext-small-caps-3', $this->oset);
+		$smallcaps4 = ploption('bigtext-small-caps-4', $this->oset);
+		$smallcaps5 = ploption('bigtext-small-caps-5', $this->oset);
+		$smallcaps6 = ploption('bigtext-small-caps-6', $this->oset);
+		$smallcaps7 = ploption('bigtext-small-caps-7', $this->oset);
+		$smallcaps8 = ploption('bigtext-small-caps-8', $this->oset);
+		$smallcaps9 = ploption('bigtext-small-caps-9', $this->oset);
 
 		//same code applies to all of them
 		$transparenttextcode = "-webkit-background-clip:text; -webkit-text-fill-color:transparent;";
 		// transparent text
-		$transparenttext = $this->opt('bigtext-transparent-text');
+		$transparenttext = ploption('bigtext-transparent-text', $this->oset);
 		// line-by-line
 		// DOES NOT WORK LINE-BY-LINE UNLESS BACKGROUND IS LINE-BY-LINE
 /*
-		$transparenttext0 = $this->opt('bigtext-transparent-text-0');
-		$transparenttext1 = $this->opt('bigtext-transparent-text-1');
-		$transparenttext2 = $this->opt('bigtext-transparent-text-2');
-		$transparenttext3 = $this->opt('bigtext-transparent-text-3');
-		$transparenttext4 = $this->opt('bigtext-transparent-text-4');
-		$transparenttext5 = $this->opt('bigtext-transparent-text-5');
-		$transparenttext6 = $this->opt('bigtext-transparent-text-6');
-		$transparenttext7 = $this->opt('bigtext-transparent-text-7');
-		$transparenttext8 = $this->opt('bigtext-transparent-text-8');
-		$transparenttext9 = $this->opt('bigtext-transparent-text-9');
+		$transparenttext0 = ploption('bigtext-transparent-text-0', $this->oset);
+		$transparenttext1 = ploption('bigtext-transparent-text-1', $this->oset);
+		$transparenttext2 = ploption('bigtext-transparent-text-2', $this->oset);
+		$transparenttext3 = ploption('bigtext-transparent-text-3', $this->oset);
+		$transparenttext4 = ploption('bigtext-transparent-text-4', $this->oset);
+		$transparenttext5 = ploption('bigtext-transparent-text-5', $this->oset);
+		$transparenttext6 = ploption('bigtext-transparent-text-6', $this->oset);
+		$transparenttext7 = ploption('bigtext-transparent-text-7', $this->oset);
+		$transparenttext8 = ploption('bigtext-transparent-text-8', $this->oset);
+		$transparenttext9 = ploption('bigtext-transparent-text-9', $this->oset);
 */
 
 		//text color
-		$color = pl_hashify($this->opt('bigtext-color'));
+		$color = ploption('bigtext-color', $this->oset);
 		// line-by-line color
-		$color0 = pl_hashify($this->opt('bigtext-color-0'));
-		$color1 = pl_hashify($this->opt('bigtext-color-1'));
-		$color2 = pl_hashify($this->opt('bigtext-color-2'));
-		$color3 = pl_hashify($this->opt('bigtext-color-3'));
-		$color4 = pl_hashify($this->opt('bigtext-color-4'));
-		$color5 = pl_hashify($this->opt('bigtext-color-5'));
-		$color6 = pl_hashify($this->opt('bigtext-color-6'));
-		$color7 = pl_hashify($this->opt('bigtext-color-7'));
-		$color8 = pl_hashify($this->opt('bigtext-color-8'));
-		$color9 = pl_hashify($this->opt('bigtext-color-9'));
+		$color0 = ploption('bigtext-color-0', $this->oset);
+		$color1 = ploption('bigtext-color-1', $this->oset);
+		$color2 = ploption('bigtext-color-2', $this->oset);
+		$color3 = ploption('bigtext-color-3', $this->oset);
+		$color4 = ploption('bigtext-color-4', $this->oset);
+		$color5 = ploption('bigtext-color-5', $this->oset);
+		$color6 = ploption('bigtext-color-6', $this->oset);
+		$color7 = ploption('bigtext-color-7', $this->oset);
+		$color8 = ploption('bigtext-color-8', $this->oset);
+		$color9 = ploption('bigtext-color-9', $this->oset);
 
 		//stroke
-		$colorstroke = pl_hashify($this->opt('bigtext-color-stroke'));
+		$colorstroke = ploption('bigtext-color-stroke', $this->oset);
 			if(!empty($colorstroke)) {
 				$stroketextcode = "text-shadow: -1px -1px 0 $colorstroke, 1px -1px 0 $colorstroke, -1px 1px 0 $colorstroke, 1px 1px 0 $colorstroke;";
 			}
 		// line-by-line stroke
-		$colorstroke0 = pl_hashify($this->opt('bigtext-color-0-stroke'));
+		$colorstroke0 = ploption('bigtext-color-0-stroke', $this->oset);
 			if(!empty($colorstroke0)) {
 				$stroketextcode0 = "text-shadow: -1px -1px 0 $colorstroke0, 1px -1px 0 $colorstroke0, -1px 1px 0 $colorstroke0, 1px 1px 0 $colorstroke0;";
 			}
-		$colorstroke1 = pl_hashify($this->opt('bigtext-color-1-stroke'));
+		$colorstroke1 = ploption('bigtext-color-1-stroke', $this->oset);
 			if(!empty($colorstroke1)) {
 				$stroketextcode1 = "text-shadow: -1px -1px 0 $colorstroke1, 1px -1px 0 $colorstroke1, -1px 1px 0 $colorstroke1, 1px 1px 0 $colorstroke1;";
 			}
-		$colorstroke2 = pl_hashify($this->opt('bigtext-color-2-stroke'));
+		$colorstroke2 = ploption('bigtext-color-2-stroke', $this->oset);
 			if(!empty($colorstroke2)) {
 				$stroketextcode2 = "text-shadow: -1px -1px 0 $colorstroke2, 1px -1px 0 $colorstroke2, -1px 1px 0 $colorstroke2, 1px 1px 0 $colorstroke2;";
 			}
-		$colorstroke3 = pl_hashify($this->opt('bigtext-color-3-stroke'));
+		$colorstroke3 = ploption('bigtext-color-3-stroke', $this->oset);
 			if(!empty($colorstroke3)) {
 				$stroketextcode3 = "text-shadow: -1px -1px 0 $colorstroke3, 1px -1px 0 $colorstroke3, -1px 1px 0 $colorstroke3, 1px 1px 0 $colorstroke3;";
 			}
-		$colorstroke4 = pl_hashify($this->opt('bigtext-color-4-stroke'));
+		$colorstroke4 = ploption('bigtext-color-4-stroke', $this->oset);
 			if(!empty($colorstroke4)) {
 				$stroketextcode4 = "text-shadow: -1px -1px 0 $colorstroke4, 1px -1px 0 $colorstroke4, -1px 1px 0 $colorstroke4, 1px 1px 0 $colorstroke4;";
 			}
-		$colorstroke5 = pl_hashify($this->opt('bigtext-color-5-stroke'));
+		$colorstroke5 = ploption('bigtext-color-5-stroke', $this->oset);
 			if(!empty($colorstroke5)) {
 				$stroketextcode5 = "text-shadow: -1px -1px 0 $colorstroke5, 1px -1px 0 $colorstroke5, -1px 1px 0 $colorstroke5, 1px 1px 0 $colorstroke5;";
 			}
-		$colorstroke6 = pl_hashify($this->opt('bigtext-color-6-stroke'));
+		$colorstroke6 = ploption('bigtext-color-6-stroke', $this->oset);
 			if(!empty($colorstroke6)) {
 				$stroketextcode6 = "text-shadow: -1px -1px 0 $colorstroke6, 1px -1px 0 $colorstroke6, -1px 1px 0 $colorstroke6, 1px 1px 0 $colorstroke6;";
 			}
-		$colorstroke7 = pl_hashify($this->opt('bigtext-color-7-stroke'));
+		$colorstroke7 = ploption('bigtext-color-7-stroke', $this->oset);
 			if(!empty($colorstroke7)) {
 				$stroketextcode7 = "text-shadow: -1px -1px 0 $colorstroke7, 1px -1px 0 $colorstroke7, -1px 1px 0 $colorstroke7, 1px 1px 0 $colorstroke7;";
 			}
-		$colorstroke8 = pl_hashify($this->opt('bigtext-color-8-stroke'));
+		$colorstroke8 = ploption('bigtext-color-8-stroke', $this->oset);
 			if(!empty($colorstroke8)) {
 				$stroketextcode8 = "text-shadow: -1px -1px 0 $colorstroke8, 1px -1px 0 $colorstroke8, -1px 1px 0 $colorstroke8, 1px 1px 0 $colorstroke8;";
 			}
-		$colorstroke9 = pl_hashify($this->opt('bigtext-color-9-stroke'));
+		$colorstroke9 = ploption('bigtext-color-9-stroke', $this->oset);
 			if(!empty($colorstroke9)) {
 				$stroketextcode9 = "text-shadow: -1px -1px 0 $colorstroke9, 1px -1px 0 $colorstroke9, -1px 1px 0 $colorstroke9, 1px 1px 0 $colorstroke9;";
 			}
 
 		//shadow color
-		$colorshadow = pl_hashify($this->opt('bigtext-color-shadow'));
+		$colorshadow = ploption('bigtext-color-shadow', $this->oset);
 			if(!empty($colorshadow)) {
-				$shadowlength = $this->opt('bigtext-color-shadow-length') ? $this->opt('bigtext-color-shadow-length') : '2px';
+				$shadowlength = ploption('bigtext-color-shadow-length', $this->oset) ? ploption('bigtext-color-shadow-length', $this->oset) : '2px';
 				$shadowlength = esc_html($shadowlength);
 				$shadowcode = "text-shadow: $shadowlength $shadowlength $colorshadow;";
 			}
 		// line-by-line shadow
-		$colorshadow0 = pl_hashify($this->opt('bigtext-color-0-shadow'));
+		$colorshadow0 = ploption('bigtext-color-0-shadow', $this->oset);
 			if(!empty($colorshadow0)) {
-				$shadowlength0 = $this->opt('bigtext-color-0-shadow-length') ? $this->opt('bigtext-color-0-shadow-length') : '2px';
+				$shadowlength0 = ploption('bigtext-color-0-shadow-length', $this->oset) ? ploption('bigtext-color-0-shadow-length', $this->oset) : '2px';
 				$shadowlength0 = esc_html($shadowlength0);
 				$shadowcode0 = "text-shadow: $shadowlength0 $shadowlength0 $colorshadow0;";
 			}
-		$colorshadow1 = pl_hashify($this->opt('bigtext-color-1-shadow'));
+		$colorshadow1 = ploption('bigtext-color-1-shadow', $this->oset);
 			if(!empty($colorshadow1)) {
-				$shadowlength1 = $this->opt('bigtext-color-1-shadow-length') ? $this->opt('bigtext-color-1-shadow-length') : '2px';
+				$shadowlength1 = ploption('bigtext-color-1-shadow-length', $this->oset) ? ploption('bigtext-color-1-shadow-length', $this->oset) : '2px';
 				$shadowlength1 = esc_html($shadowlength1);
 				$shadowcode1 = "text-shadow: $shadowlength1 $shadowlength1 $colorshadow1;";
 			}
-		$colorshadow2 = pl_hashify($this->opt('bigtext-color-2-shadow'));
+		$colorshadow2 = ploption('bigtext-color-2-shadow', $this->oset);
 			if(!empty($colorshadow2)) {
-				$shadowlength2 = $this->opt('bigtext-color-2-shadow-length') ? $this->opt('bigtext-color-2-shadow-length') : '2px';
+				$shadowlength2 = ploption('bigtext-color-2-shadow-length', $this->oset) ? ploption('bigtext-color-2-shadow-length', $this->oset) : '2px';
 				$shadowlength2 = esc_html($shadowlength2);
 				$shadowcode2 = "text-shadow: $shadowlength2 $shadowlength2 $colorshadow2;";
 			}
-		$colorshadow3 = pl_hashify($this->opt('bigtext-color-3-shadow'));
+		$colorshadow3 = ploption('bigtext-color-3-shadow', $this->oset);
 			if(!empty($colorshadow3)) {
-				$shadowlength3 = $this->opt('bigtext-color-3-shadow-length') ? $this->opt('bigtext-color-3-shadow-length') : '2px';
+				$shadowlength3 = ploption('bigtext-color-3-shadow-length', $this->oset) ? ploption('bigtext-color-3-shadow-length', $this->oset) : '2px';
 				$shadowlength3 = esc_html($shadowlength3);
 				$shadowcode3 = "text-shadow: $shadowlength3 $shadowlength3 $colorshadow3;";
 			}
-		$colorshadow4 = pl_hashify($this->opt('bigtext-color-4-shadow'));
+		$colorshadow4 = ploption('bigtext-color-4-shadow', $this->oset);
 			if(!empty($colorshadow4)) {
-				$shadowlength4 = $this->opt('bigtext-color-4-shadow-length') ? $this->opt('bigtext-color-4-shadow-length') : '2px';
+				$shadowlength4 = ploption('bigtext-color-4-shadow-length', $this->oset) ? ploption('bigtext-color-4-shadow-length', $this->oset) : '2px';
 				$shadowlength4 = esc_html($shadowlength4);
 				$shadowcode4 = "text-shadow: $shadowlength4 $shadowlength4 $colorshadow4;";
 			}
-		$colorshadow5 = pl_hashify($this->opt('bigtext-color-5-shadow'));
+		$colorshadow5 = ploption('bigtext-color-5-shadow', $this->oset);
 			if(!empty($colorshadow5)) {
-				$shadowlength5 = $this->opt('bigtext-color-5-shadow-length') ? $this->opt('bigtext-color-5-shadow-length') : '2px';
+				$shadowlength5 = ploption('bigtext-color-5-shadow-length', $this->oset) ? ploption('bigtext-color-5-shadow-length', $this->oset) : '2px';
 				$shadowlength5 = esc_html($shadowlength5);
 				$shadowcode5 = "text-shadow: $shadowlength5 $shadowlength5 $colorshadow5;";
 			}
-		$colorshadow6 = pl_hashify($this->opt('bigtext-color-6-shadow'));
+		$colorshadow6 = ploption('bigtext-color-6-shadow', $this->oset);
 			if(!empty($colorshadow6)) {
-				$shadowlength6 = $this->opt('bigtext-color-6-shadow-length') ? $this->opt('bigtext-color-6-shadow-length') : '2px';
+				$shadowlength6 = ploption('bigtext-color-6-shadow-length', $this->oset) ? ploption('bigtext-color-6-shadow-length', $this->oset) : '2px';
 				$shadowlength6 = esc_html($shadowlength6);
 				$shadowcode6 = "text-shadow: $shadowlength6 $shadowlength6 $colorshadow6;";
 			}
-		$colorshadow7 = pl_hashify($this->opt('bigtext-color-7-shadow'));
+		$colorshadow7 = ploption('bigtext-color-7-shadow', $this->oset);
 			if(!empty($colorshadow7)) {
-				$shadowlength7 = $this->opt('bigtext-color-7-shadow-length') ? $this->opt('bigtext-color-7-shadow-length') : '2px';
+				$shadowlength7 = ploption('bigtext-color-7-shadow-length', $this->oset) ? ploption('bigtext-color-7-shadow-length', $this->oset) : '2px';
 				$shadowlength7 = esc_html($shadowlength7);
 				$shadowcode7 = "text-shadow: $shadowlength7 $shadowlength7 $colorshadow7;";
 			}
-		$colorshadow8 = pl_hashify($this->opt('bigtext-color-8-shadow'));
+		$colorshadow8 = ploption('bigtext-color-8-shadow', $this->oset);
 			if(!empty($colorshadow8)) {
-				$shadowlength8 = $this->opt('bigtext-color-8-shadow-length') ? $this->opt('bigtext-color-8-shadow-length') : '2px';
+				$shadowlength8 = ploption('bigtext-color-8-shadow-length', $this->oset) ? ploption('bigtext-color-8-shadow-length', $this->oset) : '2px';
 				$shadowlength8 = esc_html($shadowlength8);
 				$shadowcode8 = "text-shadow: $shadowlength8 $shadowlength8 $colorshadow8;";
 			}
-		$colorshadow9 = pl_hashify($this->opt('bigtext-color-9-shadow'));
+		$colorshadow9 = ploption('bigtext-color-9-shadow', $this->oset);
 			if(!empty($colorshadow9)) {
-				$shadowlength9 = $this->opt('bigtext-color-9-shadow-length') ? $this->opt('bigtext-color-9-shadow-length') : '2px';
+				$shadowlength9 = ploption('bigtext-color-9-shadow-length', $this->oset) ? ploption('bigtext-color-9-shadow-length', $this->oset) : '2px';
 				$shadowlength9 = esc_html($shadowlength9);
 				$shadowcode9 = "text-shadow: $shadowlength9 $shadowlength9 $colorshadow9;";
 			}
 
 		// text-align
-		$textalign = $this->opt('bigtext-text-align') ? $this->opt('bigtext-text-align') : 'center' ;
+		$textalign = ploption('bigtext-text-align', $this->oset) ? ploption('bigtext-text-align', $this->oset) : 'center' ;
 		// line-by-line text-align
-		$textalign0 = $this->opt('bigtext-text-align-0');
-		$textalign1 = $this->opt('bigtext-text-align-1');
-		$textalign2 = $this->opt('bigtext-text-align-2');
-		$textalign3 = $this->opt('bigtext-text-align-3');
-		$textalign4 = $this->opt('bigtext-text-align-4');
-		$textalign5 = $this->opt('bigtext-text-align-5');
-		$textalign6 = $this->opt('bigtext-text-align-6');
-		$textalign7 = $this->opt('bigtext-text-align-7');
-		$textalign8 = $this->opt('bigtext-text-align-8');
-		$textalign9 = $this->opt('bigtext-text-align-9');
+		$textalign0 = ploption('bigtext-text-align-0', $this->oset);
+		$textalign1 = ploption('bigtext-text-align-1', $this->oset);
+		$textalign2 = ploption('bigtext-text-align-2', $this->oset);
+		$textalign3 = ploption('bigtext-text-align-3', $this->oset);
+		$textalign4 = ploption('bigtext-text-align-4', $this->oset);
+		$textalign5 = ploption('bigtext-text-align-5', $this->oset);
+		$textalign6 = ploption('bigtext-text-align-6', $this->oset);
+		$textalign7 = ploption('bigtext-text-align-7', $this->oset);
+		$textalign8 = ploption('bigtext-text-align-8', $this->oset);
+		$textalign9 = ploption('bigtext-text-align-9', $this->oset);
 
 		// text-decoration
-		$textdecoration = $this->opt('bigtext-text-decoration') ? $this->opt('bigtext-text-decoration') : 'none' ;
+		$textdecoration = ploption('bigtext-text-decoration', $this->oset) ? ploption('bigtext-text-decoration', $this->oset) : 'none' ;
 		// line-by-line text-decoration
-		$textdecoration0 = $this->opt('bigtext-text-decoration-0') ? $this->opt('bigtext-text-decoration-0') : 'none' ;
-		$textdecoration1 = $this->opt('bigtext-text-decoration-1') ? $this->opt('bigtext-text-decoration-1') : 'none' ;
-		$textdecoration2 = $this->opt('bigtext-text-decoration-2') ? $this->opt('bigtext-text-decoration-2') : 'none' ;
-		$textdecoration3 = $this->opt('bigtext-text-decoration-3') ? $this->opt('bigtext-text-decoration-3') : 'none' ;
-		$textdecoration4 = $this->opt('bigtext-text-decoration-4') ? $this->opt('bigtext-text-decoration-4') : 'none' ;
-		$textdecoration5 = $this->opt('bigtext-text-decoration-5') ? $this->opt('bigtext-text-decoration-5') : 'none' ;
-		$textdecoration6 = $this->opt('bigtext-text-decoration-6') ? $this->opt('bigtext-text-decoration-6') : 'none' ;
-		$textdecoration7 = $this->opt('bigtext-text-decoration-7') ? $this->opt('bigtext-text-decoration-7') : 'none' ;
-		$textdecoration8 = $this->opt('bigtext-text-decoration-8') ? $this->opt('bigtext-text-decoration-8') : 'none' ;
-		$textdecoration9 = $this->opt('bigtext-text-decoration-9') ? $this->opt('bigtext-text-decoration-9') : 'none' ;
+		$textdecoration0 = ploption('bigtext-text-decoration-0', $this->oset) ? ploption('bigtext-text-decoration-0', $this->oset) : 'none' ;
+		$textdecoration1 = ploption('bigtext-text-decoration-1', $this->oset) ? ploption('bigtext-text-decoration-1', $this->oset) : 'none' ;
+		$textdecoration2 = ploption('bigtext-text-decoration-2', $this->oset) ? ploption('bigtext-text-decoration-2', $this->oset) : 'none' ;
+		$textdecoration3 = ploption('bigtext-text-decoration-3', $this->oset) ? ploption('bigtext-text-decoration-3', $this->oset) : 'none' ;
+		$textdecoration4 = ploption('bigtext-text-decoration-4', $this->oset) ? ploption('bigtext-text-decoration-4', $this->oset) : 'none' ;
+		$textdecoration5 = ploption('bigtext-text-decoration-5', $this->oset) ? ploption('bigtext-text-decoration-5', $this->oset) : 'none' ;
+		$textdecoration6 = ploption('bigtext-text-decoration-6', $this->oset) ? ploption('bigtext-text-decoration-6', $this->oset) : 'none' ;
+		$textdecoration7 = ploption('bigtext-text-decoration-7', $this->oset) ? ploption('bigtext-text-decoration-7', $this->oset) : 'none' ;
+		$textdecoration8 = ploption('bigtext-text-decoration-8', $this->oset) ? ploption('bigtext-text-decoration-8', $this->oset) : 'none' ;
+		$textdecoration9 = ploption('bigtext-text-decoration-9', $this->oset) ? ploption('bigtext-text-decoration-9', $this->oset) : 'none' ;
 
 		// line-height
-		$lineheight = $this->opt('bigtext-line-height') ? $this->opt('bigtext-line-height') : '1';
+		$lineheight = ploption('bigtext-line-height', $this->oset) ? ploption('bigtext-line-height', $this->oset) : '1';
 			$lineheight = esc_html($lineheight);
 		// line-by-line line-height
-		$lineheight0 = $this->opt('bigtext-line-height-0');
+		$lineheight0 = ploption('bigtext-line-height-0', $this->oset);
 			$lineheight0 = esc_html($lineheight0);
-		$lineheight1 = $this->opt('bigtext-line-height-1');
+		$lineheight1 = ploption('bigtext-line-height-1', $this->oset);
 			$lineheight1 = esc_html($lineheight1);
-		$lineheight2 = $this->opt('bigtext-line-height-2');
+		$lineheight2 = ploption('bigtext-line-height-2', $this->oset);
 			$lineheight2 = esc_html($lineheight2);
-		$lineheight3 = $this->opt('bigtext-line-height-3');
+		$lineheight3 = ploption('bigtext-line-height-3', $this->oset);
 			$lineheight3 = esc_html($lineheight3);
-		$lineheight4 = $this->opt('bigtext-line-height-4');
+		$lineheight4 = ploption('bigtext-line-height-4', $this->oset);
 			$lineheight4 = esc_html($lineheight4);
-		$lineheight5 = $this->opt('bigtext-line-height-5');
+		$lineheight5 = ploption('bigtext-line-height-5', $this->oset);
 			$lineheight5 = esc_html($lineheight5);
-		$lineheight6 = $this->opt('bigtext-line-height-6');
+		$lineheight6 = ploption('bigtext-line-height-6', $this->oset);
 			$lineheight6 = esc_html($lineheight6);
-		$lineheight7 = $this->opt('bigtext-line-height-7');
+		$lineheight7 = ploption('bigtext-line-height-7', $this->oset);
 			$lineheight7 = esc_html($lineheight7);
-		$lineheight8 = $this->opt('bigtext-line-height-8');
+		$lineheight8 = ploption('bigtext-line-height-8', $this->oset);
 			$lineheight8 = esc_html($lineheight8);
-		$lineheight9 = $this->opt('bigtext-line-height-9');
+		$lineheight9 = ploption('bigtext-line-height-9', $this->oset);
 			$lineheight9 = esc_html($lineheight9);
 
 		// exempt
-		$exempt0 = $this->opt('bigtext-exempt-0');
-		$exempt1 = $this->opt('bigtext-exempt-1');
-		$exempt2 = $this->opt('bigtext-exempt-2');
-		$exempt3 = $this->opt('bigtext-exempt-3');
-		$exempt4 = $this->opt('bigtext-exempt-4');
-		$exempt5 = $this->opt('bigtext-exempt-5');
-		$exempt6 = $this->opt('bigtext-exempt-6');
-		$exempt7 = $this->opt('bigtext-exempt-7');
-		$exempt8 = $this->opt('bigtext-exempt-8');
-		$exempt9 = $this->opt('bigtext-exempt-9');
+		$exempt0 = ploption('bigtext-exempt-0', $this->oset);
+		$exempt1 = ploption('bigtext-exempt-1', $this->oset);
+		$exempt2 = ploption('bigtext-exempt-2', $this->oset);
+		$exempt3 = ploption('bigtext-exempt-3', $this->oset);
+		$exempt4 = ploption('bigtext-exempt-4', $this->oset);
+		$exempt5 = ploption('bigtext-exempt-5', $this->oset);
+		$exempt6 = ploption('bigtext-exempt-6', $this->oset);
+		$exempt7 = ploption('bigtext-exempt-7', $this->oset);
+		$exempt8 = ploption('bigtext-exempt-8', $this->oset);
+		$exempt9 = ploption('bigtext-exempt-9', $this->oset);
 
 
 
